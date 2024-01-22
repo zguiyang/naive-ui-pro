@@ -19,8 +19,13 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
   },
-  "include": ["packages/**/*.ts", "packages/**/*.tsx", "packages/**/*.vue", "vite.build.config.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "packages/**/*.ts",
+    "packages/**/*.tsx",
+    "packages/**/*.vue",
+    "vite.build.config.ts",
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }],
 }
