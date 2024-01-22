@@ -20,12 +20,17 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "types": ["node"],
+    "paths": {
+      "@naive-ui-pro/hooks": ["./packages/hooks"],
+    }
   },
   "include": [
     "packages/**/*.ts",
     "packages/**/*.tsx",
     "packages/**/*.vue",
     "vite.build.config.ts",
+    "index.ts",
   ],
   "references": [{ "path": "./tsconfig.node.json" }],
 }

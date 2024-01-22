@@ -21,6 +21,7 @@ module.exports = {
   rules: {
 		'prettier/prettier': 'error',
     '@typescript-eslint/array-type': 'error',
-    '@typescript-eslint/no-explicit-any': ['warn', { ignoreRestArgs: true }]
+    '@typescript-eslint/no-explicit-any': 'off',
+		'@typescript-eslint/explicit-function-return-type': 'off',
   }
 }
