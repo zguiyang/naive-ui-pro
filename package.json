@@ -1,15 +1,62 @@
 {
   "name": "naive-ui-pro",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "build": "vite build -c vite.build.ts",
     "build:lint": "vue-tsc && vite build -c vite.build.ts",
     "lint": "eslint . --fix --ext .ts,.tsx,.vue,.js,.jsx",
     "fix": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
-    "format": "prettier --write \"./**/*.{js,ts,json,css,scss}\""
+    "format": "prettier --write \"./**/*.{js,ts,tsx,jsx,json,css,scss}\""
   },
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./esm/index.d.ts",
+      "import": "./esm/index.js",
+      "require": "./lib/index.js"
+    },
+    "./es": {
+      "types": "./esm/index.d.ts",
+      "import": "./esm/index.js"
+    },
+    "./lib": {
+      "types": "./dist/index.d.ts",
+      "require": "./lib/index.js"
+    },
+    "./es/*.js": {
+      "types": "./esm/*.d.ts",
+      "import": "./esm/*.js"
+    },
+    "./es/*": {
+      "types": [
+        "./esm/*.d.ts",
+        "./esm/*/index.d.ts"
+      ],
+      "import": "./es/*.mjs"
+    },
+    "./lib/*.js": {
+      "types": "./lib/*.d.ts",
+      "require": "./lib/*.js"
+    },
+    "./lib/*": {
+      "types": [
+        "./lib/*.d.ts",
+        "./lib/*/index.d.ts"
+      ],
+      "require": "./lib/*.js"
+    },
+    "./package.json": "./package.json",
+    "./*": "./*"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
   "dependencies": {
     "vue": "^3.3.11"
   },
