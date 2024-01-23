@@ -2,10 +2,10 @@ import { defineComponent } from 'vue';
 
 const Layout = defineComponent({
   name: 'pro-layout',
-  setup() {
+  setup(props, { slots }) {
     return () => (
       <div ref={'formRef'} className='pro-layout'>
-        Layout
+        {slots.default?.()}
       </div>
     );
   },
