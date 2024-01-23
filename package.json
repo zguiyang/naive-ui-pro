@@ -4,6 +4,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
+    "dev": "pnpm --filter dev-server dev",
     "build": "vite build -c vite.build.ts",
     "build:lint": "vue-tsc && vite build -c vite.build.ts",
     "lint": "eslint . --fix --ext .ts,.tsx,.vue,.js,.jsx",
@@ -58,6 +59,7 @@
     "package.json"
   ],
   "dependencies": {
+    "lodash-es": "^4.17.21",
     "vue": "^3.3.11"
   },
   "devDependencies": {
