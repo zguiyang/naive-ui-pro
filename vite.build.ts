@@ -10,7 +10,7 @@ export default defineConfig({
     vue(),
     jsx(),
     dts({
-      include: ['hooks', 'components', 'index.ts'],
+      include: ['src/**/*.ts', 'src/**/*.tsx'],
       outDir: ['dist/esm', 'dist/lib'],
       tsconfigPath: './tsconfig.json',
       compilerOptions: {
@@ -28,7 +28,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'index.ts'),
+      entry: resolve(__dirname, 'src', 'index.ts'),
       name: 'NaiveUiPro',
       fileName: 'naive-ui-pro',
     },
