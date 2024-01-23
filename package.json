@@ -11,7 +11,8 @@
     "fix": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "format": "prettier --write \"./**/*.{js,ts,tsx,jsx,json,css,scss}\"",
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "cz": "git-cz"
   },
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -74,6 +75,8 @@
     "@vitejs/plugin-vue": "^4.5.2",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vue/compiler-sfc": "^3.4.15",
+    "commitizen": "^4.3.0",
+    "cz-git": "^1.8.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard-with-typescript": "^43.0.0",
@@ -96,5 +99,11 @@
   "lint-staged": {
     "*.{js,ts,tsx,jsx,json,css,scss}": "npm run format",
     "*.{js,ts,tsx,jsx,vue}": "npm run fix"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-git",
+      "czConfig": "./commitlint.config.cjs"
+    }
   }
 }
