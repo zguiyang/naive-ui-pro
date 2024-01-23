@@ -10,7 +10,7 @@ const config = {
 	jsxSingleQuote: true,
 	bracketSpacing: true,
 	bracketSameLine: true,
-	importOrder: ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+	importOrder: ["^vue/(.*)$", "^naive-ui/(.*)$", "^@/(.*)$", "^[./]"],
 	importOrderSeparation: true,
 	importOrderSortSpecifiers: true,
 	plugins: ["@trivago/prettier-plugin-sort-imports"],
