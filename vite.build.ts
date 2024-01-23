@@ -33,7 +33,13 @@ export default defineConfig({
       fileName: 'naive-ui-pro',
     },
     rollupOptions: {
-      external: ['vue', 'naive-ui', 'lodash-es'],
+      external: [
+        'vue',
+        'naive-ui',
+        'lodash-es',
+        'css-render',
+        '@css-render/plugin-bem',
+      ],
       treeshake: false,
       output: [
         {
