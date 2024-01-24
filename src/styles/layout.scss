@@ -1,5 +1,6 @@
-.pro-layout {
-  height: 100%;
-  width: 100%;
-  background-color: #000;
+@use './design' as *;
+@use './shared' as *;
+.#{$namespace}-layout {
+  @include flex;
+  @include flex-row(flex-start, center);
 }

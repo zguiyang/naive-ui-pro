@@ -1,0 +1,52 @@
+// Flex layout mixins
+@mixin flex($mode: flex) {
+  display: $mode;
+}
+@mixin flex-row($justify: flex-start, $align: flex-start, $direction: row) {
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-column(
+  $justify: flex-start,
+  $align: flex-start,
+  $direction: column
+) {
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+// Mixin for horizontal centering
+@mixin horizontal-center {
+  @include flex-row(center, center);
+}
+
+// Mixin for vertical centering
+@mixin vertical-center {
+  @include flex-column(center, center);
+}
+
+// Mixin for full width
+@mixin full-width($margin: 0) {
+  width: 100%;
+  margin-left: $margin;
+  margin-right: $margin;
+}
+
+// Mixin for width and height
+@mixin boxSize($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+// Margin mixin
+@mixin margin($top: 0, $right: $top, $bottom: $top, $left: $right) {
+  margin: $top $right $bottom $left;
+}
+
+// Padding mixin
+@mixin padding($top: 0, $right: $top, $bottom: $top, $left: $right) {
+  padding: $top $right $bottom $left;
+}
