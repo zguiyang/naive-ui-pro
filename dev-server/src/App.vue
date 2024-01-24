@@ -3,11 +3,9 @@ import { ProLayout } from 'naive-ui-pro';
 </script>
 
 <template>
-  <div>
-    <pro-layout>
-      <h1>APP</h1>
-    </pro-layout>
-  </div>
+  <pro-layout>
+    <h1>APP</h1>
+  </pro-layout>
 </template>
 
 <style scoped></style>
