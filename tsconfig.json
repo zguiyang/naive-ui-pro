@@ -35,8 +35,6 @@
     "playground/**/*.vue",
     "index.ts",
     "vite.build.ts",
-    "vite.build.style.ts",
-    "vite.build.css.ts",
   ],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }],
