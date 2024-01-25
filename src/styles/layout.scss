@@ -1,6 +1,9 @@
 @use './design' as *;
 @use './shared' as *;
 .#{$namespace}-layout {
-  @include flex;
-  @include flex-row(flex-start, center);
+  width: 100%;
+  height: 100vh;
+  .n-layout-content {
+    background: #f2f3f5;
+  }
 }
