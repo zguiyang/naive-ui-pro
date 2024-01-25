@@ -10,7 +10,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/gulp": "^4.0.17",
+    "@types/gulp-sass": "^5.0.4",
+    "fs-extra": "^11.2.0",
     "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^9.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.70.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.7.0"
   }

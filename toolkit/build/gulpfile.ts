@@ -1,12 +1,12 @@
-async function defaultTask(cb) {
-  // place code for your default task here
-  return new Promise((resolve ) => {
-    setTimeout(() => {
-      resolve('done');
-      console.log('任务执行完成')
-      cb();
-    }, 3000);
-  })
-}
+import gulp from 'gulp';
+import { withTaskName, run, buildStyles } from './src';
 
-export default defaultTask;
+const { series, parallel } = gulp;
+
+export default series(
+  withTaskName('clean:dist', () => run('pnpm run clean:dist')),
+  withTaskName('build:bootstrap', () => run('pnpm run build:bootstrap')),
+  parallel(
+    series(buildStyles)
+  ),
+)
