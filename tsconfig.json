@@ -33,6 +33,7 @@
     "playground/**/*.ts",
     "playground/**/*.tsx",
     "playground/**/*.vue",
+    "toolkit/**/*.ts",
     "index.ts",
     "vite.build.ts",
   ],

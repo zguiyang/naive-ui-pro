@@ -1,0 +1,17 @@
+{
+  "name": "@naive-ui-pro/build",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r tsx/cjs node_modules/gulp/bin/gulp.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.0"
+  }
+}
