@@ -75,6 +75,9 @@ importers:
       eslint-plugin-vue:
         specifier: ^9.20.1
         version: 9.20.1(eslint@8.56.0)
+      fast-glob:
+        specifier: ^3.3.2
+        version: 3.3.2
       husky:
         specifier: ^8.0.0
         version: 8.0.3
