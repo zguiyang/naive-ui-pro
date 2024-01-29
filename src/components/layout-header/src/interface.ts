@@ -2,7 +2,7 @@ import type { LayoutHeaderProps } from 'naive-ui';
 import type { ExtractPropTypes, PropType, VNodeChild } from 'vue';
 
 export const proLayoutHeaderProps = {
-  headerProps: {
+  externalProps: {
     type: Object as PropType<LayoutHeaderProps>,
     default: undefined,
   },

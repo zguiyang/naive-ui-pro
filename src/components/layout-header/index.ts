@@ -1,3 +1,3 @@
 export { default as ProLayoutHeader } from './src/layout-header';
 
-export type { proLayoutHeaderProps } from './src/interface';
+export type { ProLayoutHeaderProps } from './src/interface';

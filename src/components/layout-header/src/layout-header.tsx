@@ -14,7 +14,7 @@ export default defineComponent({
     const { $slots } = this;
 
     return (
-      <NLayoutHeader {...this.$props.headerProps} class={[bem.b()]}>
+      <NLayoutHeader {...this.$props.externalProps} class={[bem.b()]}>
         {$slots.default?.()}
       </NLayoutHeader>
     );

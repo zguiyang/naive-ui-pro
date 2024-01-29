@@ -13,6 +13,10 @@ export default defineComponent({
   render() {
     const { $slots } = this;
 
-    return <NLayoutSider class={[bem.b()]}>{$slots.default?.()}</NLayoutSider>;
+    return (
+      <NLayoutSider class={[bem.b()]} {...this.$props.externalProps}>
+        {$slots.default?.()}
+      </NLayoutSider>
+    );
   },
 });

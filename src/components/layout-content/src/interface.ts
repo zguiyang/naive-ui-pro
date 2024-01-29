@@ -2,7 +2,7 @@ import type { LayoutContentProps } from 'naive-ui';
 import type { ExtractPropTypes, PropType } from 'vue';
 
 export const proLayoutContentProps = {
-  contentProps: {
+  externalProps: {
     type: Object as PropType<LayoutContentProps>,
     default: undefined,
   },
