@@ -3,14 +3,14 @@ import { computed, h, toRef } from 'vue';
 import type { ProLayoutProps } from './interface';
 
 export function useLayoutData(props: ProLayoutProps) {
-  const { logoUrl, layoutProps = {}, renderLogo } = props;
-  const mergeLayoutPropsRef = computed(() => {
+  const { logoUrl, externalProps = {}, renderLogo } = props;
+  const mergeExternalPropsRef = computed(() => {
     if (props.layoutMode === 'top') {
-      layoutProps.hasSider = false;
+      externalProps.hasSider = false;
     } else {
-      layoutProps.hasSider = true;
+      externalProps.hasSider = true;
     }
-    return layoutProps;
+    return externalProps;
   });
   function handleRenderLogo(collapsed: boolean) {
     if (renderLogo === undefined || renderLogo === null) {
@@ -24,7 +24,7 @@ export function useLayoutData(props: ProLayoutProps) {
   return {
     titleRef: toRef(props, 'title'),
     layoutModeRef: toRef(props, 'layoutMode'),
-    mergeLayoutPropsRef,
+    mergeExternalPropsRef,
     handleRenderLogo,
   };
 }

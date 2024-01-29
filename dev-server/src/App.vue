@@ -4,7 +4,7 @@ import { ProLayout } from 'naive-ui-pro';
 </script>
 
 <template>
-  <pro-layout layout-mode="side" :layout-props="{}">
+  <pro-layout layout-mode="side">
     <n-h1>页面内容区域</n-h1>
   </pro-layout>
 </template>

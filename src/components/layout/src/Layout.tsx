@@ -13,22 +13,22 @@ const Layout = defineComponent({
   name: bem.name,
   props: proLayoutProps,
   setup(props) {
-    const { titleRef, layoutModeRef, mergeLayoutPropsRef, handleRenderLogo } =
+    const { titleRef, layoutModeRef, mergeExternalPropsRef, handleRenderLogo } =
       useLayoutData(props);
     return {
       titleRef,
       layoutModeRef,
-      mergeLayoutPropsRef,
+      mergeExternalPropsRef,
       handleRenderLogo,
     };
   },
   render() {
-    const { mergeLayoutPropsRef, $slots } = this;
+    const { mergeExternalPropsRef, $slots } = this;
     return (
       <div class={[bem.b(), bem.m(this.layoutModeRef)]}>
-        <NLayout {...mergeLayoutPropsRef}>
+        <NLayout {...mergeExternalPropsRef}>
           <ProLayoutSidebar
-            sidebarProps={{
+            externalProps={{
               contentStyle: 'padding: 24px;',
             }}>
             <div style='height:120vh'>侧边栏</div>
@@ -36,7 +36,7 @@ const Layout = defineComponent({
           <NLayout>
             <ProLayoutHeader>导航栏</ProLayoutHeader>
             <ProLayoutContent
-              contentProps={{
+              externalProps={{
                 contentStyle: 'padding: 16px 20px; min-height: 120vh',
               }}>
               {$slots.default?.()}
