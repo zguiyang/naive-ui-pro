@@ -12,7 +12,7 @@
     "fix": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "format": "prettier --write \"./**/*.{js,ts,tsx,jsx,json,css,scss}\"",
     "prepare": "husky install",
-    "lint-staged": "lint-staged",
+    "lint-staged": "lint-staged --allow-empty",
     "cz": "git-cz",
     "clean:dist": "rimraf dist"
   },
@@ -113,7 +113,7 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx,json,css,scss}": "npm run format",
-    "*.{js,ts,tsx,jsx,vue}": "npm run fix"
+    "*.{js,ts,tsx,jsx,vue}": "npm run lint"
   },
   "config": {
     "commitizen": {
