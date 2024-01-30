@@ -5,9 +5,9 @@ import { NLayout, NLayoutFooter } from 'naive-ui';
 import { useBemNamespace } from '../../_utils';
 import { useLayoutData } from './hooks.ts';
 import { proLayoutProps } from './interface.ts';
-import { ProLayoutContent } from './modules/layout-content.tsx';
-import { ProLayoutHeader } from './modules/layout-header';
-import { ProLayoutSidebar } from './modules/layout-sidebar';
+import { LayoutContent } from './modules/layout-content.tsx';
+import { LayoutHeader } from './modules/layout-header';
+import { LayoutSidebar } from './modules/layout-sidebar';
 
 const bem = useBemNamespace('layout');
 const Layout = defineComponent({
@@ -31,22 +31,22 @@ const Layout = defineComponent({
         class={[bem.b(), bem.m(this.layoutModeRef)]}
         {...mergeExternalPropsRef}
         position={'absolute'}>
-        <ProLayoutSidebar
+        <LayoutSidebar
           externalProps={{
             position: 'absolute',
           }}>
           <div style='height:200px; background-color: #f2f3f5;'>侧边栏</div>
-        </ProLayoutSidebar>
+        </LayoutSidebar>
         <NLayout
           class={[bem.e('container-wrapper')]}
           position={'absolute'}
           style={{ marginLeft: '274px' }}>
-          <ProLayoutHeader
+          <LayoutHeader
             externalProps={{
               style: { height: '64px' },
             }}>
             导航栏
-          </ProLayoutHeader>
+          </LayoutHeader>
           <NLayout
             class={[bem.e('content')]}
             position={'absolute'}
@@ -54,7 +54,7 @@ const Layout = defineComponent({
               top: '64px',
               background: '#f2f3f5',
             }}>
-            <ProLayoutContent>{$slots.default?.()}</ProLayoutContent>
+            <LayoutContent>{$slots.default?.()}</LayoutContent>
             <NLayoutFooter
               class={[bem.e('footer')]}
               position='absolute'

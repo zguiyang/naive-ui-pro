@@ -30,7 +30,7 @@ export type ProLayoutHeaderProps = ExtractPublicPropTypes<
 
 const bem = useBemNamespace('layout-header');
 
-export const ProLayoutHeader = defineComponent({
+export const LayoutHeader = defineComponent({
   name: bem.name,
   props: proLayoutHeaderProps,
   setup() {},

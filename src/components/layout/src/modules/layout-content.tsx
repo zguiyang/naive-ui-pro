@@ -19,7 +19,7 @@ export type ProLayoutContentProps = ExtractPublicPropTypes<
 
 const bem = useBemNamespace('layout-content');
 
-export const ProLayoutContent = defineComponent({
+export const LayoutContent = defineComponent({
   name: bem.name,
   props: proLayoutContentProps,
   setup() {

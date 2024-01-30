@@ -19,7 +19,7 @@ export type ProLayoutSidebarProps = ExtractPublicPropTypes<
 
 const bem = useBemNamespace('layout-sidebar');
 
-export const ProLayoutSidebar = defineComponent({
+export const LayoutSidebar = defineComponent({
   name: bem.name,
   props: proLayoutSidebarProps,
   setup() {},
