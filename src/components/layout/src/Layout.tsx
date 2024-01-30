@@ -2,11 +2,11 @@ import { NLayout, NLayoutFooter } from 'naive-ui';
 import { defineComponent } from 'vue';
 
 import { useBemNamespace } from '../../_utils';
-import { ProLayoutContent } from '../../layout-content';
-import { ProLayoutHeader } from '../../layout-header';
-import { ProLayoutSidebar } from '../../layout-sidebar';
 import { useLayoutData } from './hooks.ts';
 import { proLayoutProps } from './interface.ts';
+import { ProLayoutContent } from './modules/layout-content.tsx';
+import { ProLayoutHeader } from './modules/layout-header';
+import { ProLayoutSidebar } from './modules/layout-sidebar';
 
 const bem = useBemNamespace('layout');
 const Layout = defineComponent({
@@ -26,22 +26,38 @@ const Layout = defineComponent({
     const { mergeExternalPropsRef, $slots } = this;
     return (
       <div class={[bem.b(), bem.m(this.layoutModeRef)]}>
-        <NLayout {...mergeExternalPropsRef}>
+        <NLayout {...mergeExternalPropsRef} position={'absolute'}>
           <ProLayoutSidebar
             externalProps={{
-              contentStyle: 'padding: 24px;',
+              position: 'absolute',
             }}>
-            <div style='height:120vh'>侧边栏</div>
+            <div style='height:200px; background-color: #f2f3f5;'>侧边栏</div>
           </ProLayoutSidebar>
-          <NLayout>
-            <ProLayoutHeader>导航栏</ProLayoutHeader>
-            <ProLayoutContent
+          <NLayout
+            class={[bem.e('container-wrapper')]}
+            position={'absolute'}
+            style={{ marginLeft: '274px' }}>
+            <ProLayoutHeader
               externalProps={{
-                contentStyle: 'padding: 16px 20px; min-height: 120vh',
+                style: { height: '64px' },
               }}>
-              {$slots.default?.()}
-            </ProLayoutContent>
-            <NLayoutFooter>底部区域</NLayoutFooter>
+              导航栏
+            </ProLayoutHeader>
+            <NLayout
+              class={[bem.e('content')]}
+              position={'absolute'}
+              style={{
+                top: '64px',
+                background: '#f2f3f5',
+              }}>
+              <ProLayoutContent>{$slots.default?.()}</ProLayoutContent>
+              <NLayoutFooter
+                class={[bem.e('footer')]}
+                position='absolute'
+                style='height: 64px; padding: 24px'>
+                <div>页脚区域</div>
+              </NLayoutFooter>
+            </NLayout>
           </NLayout>
         </NLayout>
       </div>

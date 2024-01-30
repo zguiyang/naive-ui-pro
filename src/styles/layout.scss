@@ -3,7 +3,8 @@
 .#{$namespace}-layout {
   width: 100%;
   height: 100vh;
-  .n-layout-content {
-    background: #f2f3f5;
+  position: relative;
+  .#{$namespace}-layout-content {
+    // background: #f2f3f5;
   }
 }

@@ -1,9 +1,9 @@
 import type { LayoutProps } from 'naive-ui';
 import type { ExtractPropTypes, PropType, VNodeChild } from 'vue';
 
-import type { ProLayoutContentProps } from '../../layout-content';
-import type { ProLayoutHeaderProps } from '../../layout-header';
-import type { ProLayoutSidebarProps } from '../../layout-sidebar';
+import type { ProLayoutContentProps } from './modules/layout-content';
+import type { ProLayoutHeaderProps } from './modules/layout-header';
+import type { ProLayoutSidebarProps } from './modules/layout-sidebar';
 
 export enum LayoutMode {
   Side = 'side',
