@@ -2,7 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-		node: true,
+    node: true,
   },
   extends: [
     'standard-with-typescript',
@@ -21,9 +21,14 @@ module.exports = {
     extraFileExtensions: ['.vue'],
   },
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     '@typescript-eslint/array-type': 'error',
-		'vue/multi-word-component-names': 'off',
+    'vue/multi-word-component-names': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',
