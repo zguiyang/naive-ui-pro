@@ -1,9 +1,11 @@
-import { computed, h, toRef } from 'vue';
+import { computed, toRef } from 'vue';
+
+import { isFunction } from 'lodash-es';
 
 import type { ProLayoutProps } from './interface';
 
 export function useLayoutData(props: ProLayoutProps) {
-  const { logoUrl, externalProps = {}, renderLogo } = props;
+  const { externalProps = {}, renderTitleLogo } = props;
   const mergeExternalPropsRef = computed(() => {
     if (props.layoutMode === 'top') {
       externalProps.hasSider = false;
@@ -13,11 +15,8 @@ export function useLayoutData(props: ProLayoutProps) {
     return externalProps;
   });
   function handleRenderLogo(collapsed: boolean) {
-    if (renderLogo === undefined || renderLogo === null) {
-      return h('img', {
-        src: logoUrl,
-        class: 'logo-img',
-      });
+    if (isFunction(renderTitleLogo)) {
+      return null;
     }
     return props.renderLogo?.(collapsed);
   }

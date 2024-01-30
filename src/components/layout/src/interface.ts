@@ -1,9 +1,12 @@
-import type { LayoutProps } from 'naive-ui';
 import type { ExtractPropTypes, PropType, VNodeChild } from 'vue';
 
-import type { ProLayoutContentProps } from './modules/layout-content';
-import type { ProLayoutHeaderProps } from './modules/layout-header';
-import type { ProLayoutSidebarProps } from './modules/layout-sidebar';
+import type {
+  LayoutContentProps,
+  LayoutFooterProps,
+  LayoutHeaderProps,
+  LayoutProps,
+  LayoutSiderProps,
+} from 'naive-ui';
 
 export enum LayoutMode {
   Side = 'side',
@@ -12,10 +15,6 @@ export enum LayoutMode {
 }
 export const proLayoutProps = {
   title: {
-    type: String,
-    default: undefined,
-  },
-  logoUrl: {
     type: String,
     default: undefined,
   },
@@ -35,14 +34,21 @@ export const proLayoutProps = {
     type: Function as PropType<(collapsed: boolean) => VNodeChild>,
     default: undefined,
   },
+  renderTitleLogo: {
+    type: Function as PropType<(collapsed: boolean) => VNodeChild>,
+    default: undefined,
+  },
   headerProps: {
-    type: Object as PropType<ProLayoutHeaderProps>,
+    type: Object as PropType<LayoutHeaderProps>,
   },
   contentProps: {
-    type: Object as PropType<ProLayoutContentProps>,
+    type: Object as PropType<LayoutContentProps>,
   },
   sideProps: {
-    type: Object as PropType<ProLayoutSidebarProps>,
+    type: Object as PropType<LayoutSiderProps>,
+  },
+  footerProps: {
+    type: Object as PropType<LayoutFooterProps>,
   },
 };
 
