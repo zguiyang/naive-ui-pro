@@ -11,8 +11,8 @@ const config = {
   bracketSpacing: true,
   bracketSameLine: true,
   importOrder: [
-    'vue|^vue/(.*)$',
-    'naive-ui|^naive-ui/(.*)$',
+    '^vue|^vue/(.*)$',
+    '^naive-ui|^naive-ui/(.*)$',
     '<THIRD_PARTY_MODULES>',
     '^@/(.*)$',
     '^[./]',
