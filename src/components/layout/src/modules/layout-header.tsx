@@ -1,7 +1,8 @@
-import { NLayoutHeader } from 'naive-ui';
-import type { LayoutHeaderProps } from 'naive-ui';
 import { defineComponent } from 'vue';
 import type { ExtractPublicPropTypes, PropType, VNodeChild } from 'vue';
+
+import { NLayoutHeader } from 'naive-ui';
+import type { LayoutHeaderProps } from 'naive-ui';
 
 import { useBemNamespace } from '../../../_utils';
 

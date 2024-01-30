@@ -1,7 +1,8 @@
-import { NLayoutContent } from 'naive-ui';
-import type { LayoutContentProps } from 'naive-ui';
 import { defineComponent } from 'vue';
 import type { ExtractPublicPropTypes, PropType } from 'vue';
+
+import { NLayoutContent } from 'naive-ui';
+import type { LayoutContentProps } from 'naive-ui';
 
 import { useBemNamespace } from '../../../_utils';
 

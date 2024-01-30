@@ -1,7 +1,8 @@
-import { NLayoutSider } from 'naive-ui';
-import type { LayoutSiderProps } from 'naive-ui';
 import { defineComponent } from 'vue';
 import type { ExtractPublicPropTypes, PropType } from 'vue';
+
+import { NLayoutSider } from 'naive-ui';
+import type { LayoutSiderProps } from 'naive-ui';
 
 import { useBemNamespace } from '../../../_utils';
 
