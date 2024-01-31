@@ -4,7 +4,17 @@
   width: 100%;
   height: 100vh;
   position: relative;
-  .#{$namespace}-layout-content {
-    // background: #f2f3f5;
+  .#{$namespace}-layout__container-wrapper {
+    background: #f2f3f5;
+  }
+  .#{$namespace}-layout__content,
+  .#{$namespace}-layout__footer {
+    background-color: transparent;
+  }
+  .#{$namespace}-layout__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px;
   }
 }
