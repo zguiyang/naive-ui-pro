@@ -6,7 +6,7 @@
  * @param {string} namespace - The namespace prefix.
  * @return {object} An object containing methods for generating BEM class names.
  */
-const defaultNamespace = 'np';
+const defaultNamespace = 'pro';
 export function useBemNamespace(block: string, namespace = defaultNamespace) {
   const blockPrefix = `${namespace}-${block}`;
 
