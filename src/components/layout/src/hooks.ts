@@ -1,7 +1,8 @@
-import { computed, toRef } from 'vue';
+import { computed, inject, toRef } from 'vue';
 
 import { isFunction } from 'lodash-es';
 
+import { layoutInjectionKey } from './context';
 import type { ProLayoutProps } from './interface';
 
 export function useLayoutData(props: ProLayoutProps) {
@@ -25,5 +26,17 @@ export function useLayoutData(props: ProLayoutProps) {
     layoutModeRef: toRef(props, 'layoutMode'),
     mergeExternalPropsRef,
     handleRenderLogo,
+  };
+}
+
+export function useLayoutProvide() {
+  const LayoutProvide = inject(layoutInjectionKey);
+
+  if (LayoutProvide === null || LayoutProvide === undefined) {
+    throw new Error('LayoutProvide is undefined');
+  }
+
+  return {
+    LayoutProvide,
   };
 }

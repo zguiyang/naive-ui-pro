@@ -1,4 +1,10 @@
-import type { ExtractPropTypes, PropType, VNodeChild } from 'vue';
+import type {
+  ComputedRef,
+  ExtractPropTypes,
+  PropType,
+  Ref,
+  VNodeChild,
+} from 'vue';
 
 import type {
   LayoutContentProps,
@@ -6,13 +12,9 @@ import type {
   LayoutHeaderProps,
   LayoutProps,
   LayoutSiderProps,
+  MenuProps,
 } from 'naive-ui';
 
-export enum LayoutMode {
-  Side = 'side',
-  Top = 'top',
-  Mix = 'mix',
-}
 export const proLayoutProps = {
   title: {
     type: String,
@@ -30,6 +32,10 @@ export const proLayoutProps = {
     type: String as PropType<'fixed' | 'fluid'>,
     default: 'fluid',
   },
+  headerHeight: {
+    type: [String, Number] as PropType<string | number>,
+    default: 60,
+  },
   renderLogo: {
     type: Function as PropType<(collapsed: boolean) => VNodeChild>,
     default: undefined,
@@ -37,6 +43,9 @@ export const proLayoutProps = {
   renderTitleLogo: {
     type: Function as PropType<(collapsed: boolean) => VNodeChild>,
     default: undefined,
+  },
+  menuProps: {
+    type: Object as PropType<MenuProps>,
   },
   headerProps: {
     type: Object as PropType<LayoutHeaderProps>,
@@ -53,3 +62,16 @@ export const proLayoutProps = {
 };
 
 export type ProLayoutProps = ExtractPropTypes<typeof proLayoutProps>;
+
+export interface ProLayoutInjection {
+  menuPropsRef: ComputedRef<ProLayoutProps['menuProps']>;
+  headerProps: ProLayoutProps['headerProps'];
+  contentProps: ProLayoutProps['contentProps'];
+  sideProps: ProLayoutProps['sideProps'];
+  titleRef: Ref<string | undefined>;
+  layoutModeRef: Ref<'side' | 'top' | 'mix'>;
+  headerHeightRef: Ref<string>;
+  handleToggleCollapsed?: (collapsed: boolean) => void;
+  handleRenderLogo?: ((collapsed: boolean) => VNodeChild) | undefined;
+  handleRenderTitleLogo?: ((collapsed: boolean) => VNodeChild) | undefined;
+}

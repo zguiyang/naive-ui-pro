@@ -1,34 +1,43 @@
 import { defineComponent } from 'vue';
-import type { ExtractPublicPropTypes, PropType } from 'vue';
 
-import { NLayoutSider } from 'naive-ui';
-import type { LayoutSiderProps } from 'naive-ui';
+import { NLayoutSider, NMenu, NScrollbar, layoutSiderProps } from 'naive-ui';
 
 import { useBemNamespace } from '../../../_utils';
-
-export const proLayoutSidebarProps = {
-  externalProps: {
-    type: Object as PropType<LayoutSiderProps>,
-    default: undefined,
-  },
-};
-
-export type ProLayoutSidebarProps = ExtractPublicPropTypes<
-  typeof proLayoutSidebarProps
->;
+import { useLayoutProvide } from '../hooks';
 
 const bem = useBemNamespace('layout-sidebar');
 
 export const LayoutSidebar = defineComponent({
   name: bem.name,
-  props: proLayoutSidebarProps,
-  setup() {},
-  render() {
-    const { $slots } = this;
+  props: layoutSiderProps,
+  setup() {
+    const { LayoutProvide } = useLayoutProvide();
 
+    return {
+      menuEXternalProps: LayoutProvide.menuPropsRef,
+    };
+  },
+  render() {
+    const { menuEXternalProps } = this;
     return (
-      <NLayoutSider class={[bem.b()]} {...this.$props.externalProps}>
-        {$slots.default?.()}
+      <NLayoutSider {...this.$props} class={[bem.b()]} show-trigger={true}>
+        <div class={[bem.e('logo')]} style={{ height: '64px' }}>
+          Logo区域
+        </div>
+        <div class={[bem.e('menus')]} style={{ height: 'calc(100vh - 64px)' }}>
+          <NScrollbar style='height: 100%;'>
+            <NMenu options={menuEXternalProps?.options}></NMenu>
+            <NMenu options={menuEXternalProps?.options}></NMenu>
+            <NMenu options={menuEXternalProps?.options}></NMenu>
+            <NMenu options={menuEXternalProps?.options}></NMenu>
+            <NMenu options={menuEXternalProps?.options}></NMenu>
+            <NMenu options={menuEXternalProps?.options}></NMenu>
+            <NMenu options={menuEXternalProps?.options}></NMenu>
+            <NMenu options={menuEXternalProps?.options}></NMenu>
+            <NMenu options={menuEXternalProps?.options}></NMenu>
+            <NMenu options={menuEXternalProps?.options}></NMenu>
+          </NScrollbar>
+        </div>
       </NLayoutSider>
     );
   },

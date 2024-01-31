@@ -1,34 +1,21 @@
 import { defineComponent } from 'vue';
-import type { ExtractPublicPropTypes, PropType } from 'vue';
 
-import { NLayoutContent } from 'naive-ui';
-import type { LayoutContentProps } from 'naive-ui';
+import { NLayoutContent, layoutContentProps } from 'naive-ui';
 
 import { useBemNamespace } from '../../../_utils';
-
-export const proLayoutContentProps = {
-  externalProps: {
-    type: Object as PropType<LayoutContentProps>,
-    default: undefined,
-  },
-};
-
-export type ProLayoutContentProps = ExtractPublicPropTypes<
-  typeof proLayoutContentProps
->;
 
 const bem = useBemNamespace('layout-content');
 
 export const LayoutContent = defineComponent({
   name: bem.name,
-  props: proLayoutContentProps,
+  props: layoutContentProps,
   setup() {
     return {};
   },
   render() {
     const { $slots } = this;
     return (
-      <NLayoutContent {...this.$props.externalProps} class={[bem.b()]}>
+      <NLayoutContent {...this.$props} class={[bem.b()]}>
         {$slots.default?.()}
       </NLayoutContent>
     );
