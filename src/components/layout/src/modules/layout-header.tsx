@@ -15,7 +15,7 @@ export const LayoutHeader = defineComponent({
 
     return {
       heightRef: LayoutProvide.headerHeightRef,
-      headerEXternalProps: LayoutProvide.headerProps,
+      headerEXternalProps: LayoutProvide.headerPropsRef,
     };
   },
   render() {
@@ -24,7 +24,8 @@ export const LayoutHeader = defineComponent({
         {...this.headerEXternalProps}
         style={{ height: this.heightRef }}
         class={[bem.b()]}>
-        导航栏区域
+        <div class={[bem.e('left')]}>导航栏左侧区域</div>
+        <div class={[bem.e('right')]}>导航栏右侧区域</div>
       </NLayoutHeader>
     );
   },

@@ -18,27 +18,39 @@ const Layout = defineComponent({
     const { titleRef, layoutModeRef, mergeExternalPropsRef } =
       useLayoutData(props);
 
-    const headerHeightRef = ref(formatCssUnit(props.headerHeight));
+    const headerHeightRef = computed(() => formatCssUnit(props.headerHeight));
+    const collapsedRef = ref(false);
+
+    function handleToggleCollapsed(collapsed: boolean) {
+      collapsedRef.value = collapsed;
+    }
 
     provide(layoutInjectionKey, {
-      titleRef: toRef(props, 'title'),
-      layoutModeRef: toRef(props, 'layoutMode'),
+      collapsedRef,
       headerHeightRef,
+      sidebarWidthRef: computed(() => props.sidebarWidth),
+      collapsedWidthRef: computed(() => props.collapsedWidth),
+      titleRef: toRef(props, 'title'),
+      layoutModeRef: computed(() => props.layoutMode),
       menuPropsRef: computed(() => props.menuProps),
-      headerProps: props.headerProps,
-      contentProps: props.contentProps,
-      sideProps: props.sideProps,
+      headerPropsRef: computed(() => props.headerProps),
+      contentPropsRef: computed(() => props.contentProps),
+      sidePropsRef: computed(() => props.sideProps),
+      handleToggleCollapsed,
     });
 
     return {
       titleRef,
       layoutModeRef,
       mergeExternalPropsRef,
+      collapsedRef,
+      sidebarWidthRef: ref(formatCssUnit(props.sidebarWidth)),
+      collapsedWidthRef: ref(formatCssUnit(props.collapsedWidth)),
       headerHeight: headerHeightRef,
     };
   },
   render() {
-    const { mergeExternalPropsRef, layoutModeRef, $slots } = this;
+    const { $slots, mergeExternalPropsRef, layoutModeRef, collapsedRef } = this;
 
     if (layoutModeRef === 'side') {
       return (
@@ -50,7 +62,11 @@ const Layout = defineComponent({
           <NLayout
             class={[bem.e('container-wrapper')]}
             position={'absolute'}
-            style={{ marginLeft: '274px' }}>
+            style={{
+              marginLeft: collapsedRef
+                ? this.collapsedWidthRef
+                : this.sidebarWidthRef,
+            }}>
             <LayoutHeader></LayoutHeader>
             <NLayout
               class={[bem.e('content')]}

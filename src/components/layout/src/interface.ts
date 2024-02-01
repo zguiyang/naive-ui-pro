@@ -24,6 +24,14 @@ export const proLayoutProps = {
     type: String as PropType<'side' | 'top' | 'mix'>,
     default: 'side',
   },
+  sidebarWidth: {
+    type: [String, Number] as PropType<string | number>,
+    default: 272,
+  },
+  collapsedWidth: {
+    type: Number,
+    default: 60,
+  },
   externalProps: {
     type: Object as PropType<LayoutProps>,
     default: undefined,
@@ -65,12 +73,15 @@ export type ProLayoutProps = ExtractPropTypes<typeof proLayoutProps>;
 
 export interface ProLayoutInjection {
   menuPropsRef: ComputedRef<ProLayoutProps['menuProps']>;
-  headerProps: ProLayoutProps['headerProps'];
-  contentProps: ProLayoutProps['contentProps'];
-  sideProps: ProLayoutProps['sideProps'];
+  headerPropsRef: ComputedRef<ProLayoutProps['headerProps']>;
+  contentPropsRef: ComputedRef<ProLayoutProps['contentProps']>;
+  sidePropsRef: ComputedRef<ProLayoutProps['sideProps']>;
   titleRef: Ref<string | undefined>;
-  layoutModeRef: Ref<'side' | 'top' | 'mix'>;
-  headerHeightRef: Ref<string>;
+  layoutModeRef: ComputedRef<'side' | 'top' | 'mix'>;
+  headerHeightRef: ComputedRef<string>;
+  sidebarWidthRef: ComputedRef<string | number>;
+  collapsedWidthRef: ComputedRef<string | number>;
+  collapsedRef: Ref<boolean>;
   handleToggleCollapsed?: (collapsed: boolean) => void;
   handleRenderLogo?: ((collapsed: boolean) => VNodeChild) | undefined;
   handleRenderTitleLogo?: ((collapsed: boolean) => VNodeChild) | undefined;
