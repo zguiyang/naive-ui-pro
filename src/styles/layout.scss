@@ -19,7 +19,9 @@ $base-class: $namespace + '-layout';
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    &__left-side {
+    &__left {
+      max-width: 200px;
+      flex-shrink: 0;
     }
     &__center {
       flex: 1;
@@ -28,7 +30,10 @@ $base-class: $namespace + '-layout';
       align-items: center;
       padding: 0 20px;
     }
-    &__right-side {
+    &__right {
+      display: flex;
+      justify-content: flex-end;
+      flex-shrink: 0;
     }
   }
   &-content {
