@@ -37,6 +37,8 @@ const Layout = defineComponent({
       contentPropsRef: computed(() => props.contentProps),
       sidePropsRef: computed(() => props.sideProps),
       handleToggleCollapsed,
+      handleRenderLogo: props.renderLogo,
+      handleRenderTitleLogo: props.renderTitleLogo,
     });
 
     return {

@@ -2,10 +2,10 @@
 import { h, ref } from 'vue';
 import type { Component } from 'vue';
 
-import { NButton, NIcon, NInput } from 'naive-ui';
+import { NButton, NIcon, NInput, NSpace } from 'naive-ui';
 import { ProLayout } from 'naive-ui-pro';
 
-import { BookFilled as BookIcon } from '@vicons/antd';
+import { BookFilled as BookIcon, HomeFilled } from '@vicons/antd';
 
 const modeArr: ['side', 'top', 'mix'] = ['side', 'top', 'mix'];
 const modeIndex = ref(0);
@@ -93,6 +93,26 @@ function toggleLayoutMode() {
   modeIndex.value += 1;
   currentLayoutMode.value = modeArr[modeIndex.value % modeArr.length] as any;
 }
+
+function renderLogo(collapsed: boolean) {
+  console.log(collapsed);
+
+  return h(NIcon, null, { default: () => h(HomeFilled) });
+}
+
+function renderTitleLogo(collapsed: boolean) {
+  console.log(collapsed);
+
+  return h(
+    NSpace,
+    {
+      size: 22,
+    },
+    {
+      default: () => [renderIcon(HomeFilled)(), 'Naive UI pro'],
+    }
+  );
+}
 </script>
 
 <template>
@@ -101,7 +121,9 @@ function toggleLayoutMode() {
     :layout-mode="currentLayoutMode"
     :menu-props="{
       options: menuOptions,
-    }">
+    }"
+    :render-logo="renderLogo"
+    :render-title-logo="renderTitleLogo">
     <n-input v-model:value="titleRef"></n-input>
     <n-button type="primary" @click="toggleLayoutMode">切换布局</n-button>
     <!-- <div style="background-color: blue; height: 120vh"></div> -->

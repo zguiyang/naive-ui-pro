@@ -13,14 +13,18 @@ export const LayoutSidebar = defineComponent({
   setup() {
     const { LayoutProvide } = useLayoutProvide();
 
+    const collapsedRef = LayoutProvide.collapsedRef;
+
     return {
       menuEXternalProps: LayoutProvide.menuPropsRef,
       titleRef: LayoutProvide.titleRef,
       widthRef: LayoutProvide.sidebarWidthRef,
       collapsedWidthRef: LayoutProvide.collapsedWidthRef,
-      collapsedRef: LayoutProvide.collapsedRef,
+      collapsedRef,
       headerHeightRef: LayoutProvide.headerHeightRef,
       handleToggleCollapsed: LayoutProvide.handleToggleCollapsed,
+      renderLogo: LayoutProvide.handleRenderLogo,
+      renderTitleLogo: LayoutProvide.handleRenderTitleLogo,
     };
   },
   render() {
@@ -32,6 +36,8 @@ export const LayoutSidebar = defineComponent({
       headerHeightRef,
       titleRef,
       handleToggleCollapsed,
+      renderLogo,
+      renderTitleLogo,
     } = this;
     return (
       <NLayoutSider
@@ -42,9 +48,19 @@ export const LayoutSidebar = defineComponent({
         collapsed-width={collapsedWidthRef}
         onUpdateCollapsed={handleToggleCollapsed}
         nativeScrollbar={true}>
-        <div class={[bem.e('logo')]} style={{ height: headerHeightRef }}>
-          Logo区域
-          {titleRef}
+        <div
+          class={[bem.e('logo-wrapper')]}
+          style={{ height: headerHeightRef }}>
+          {renderTitleLogo ? (
+            renderTitleLogo(collapsedRef)
+          ) : (
+            <>
+              {renderLogo ? renderLogo(collapsedRef) : null}
+              {collapsedRef ? null : (
+                <span class={[bem.e('title')]}>{titleRef}</span>
+              )}
+            </>
+          )}
         </div>
         <div
           class={[bem.e('menus')]}
