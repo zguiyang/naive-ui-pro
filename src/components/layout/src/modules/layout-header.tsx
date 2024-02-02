@@ -19,13 +19,17 @@ export const LayoutHeader = defineComponent({
     };
   },
   render() {
+    const { $slots } = this;
+    const leftSideSlot = $slots.leftSide ?? $slots['left-side'];
+    const rightSideSlot = $slots.rightSide ?? $slots['right-side'];
+
     return (
       <NLayoutHeader
         {...this.headerEXternalProps}
         style={{ height: this.heightRef }}
         class={[bem.b()]}>
-        <div class={[bem.e('left')]}>导航栏左侧区域</div>
-        <div class={[bem.e('right')]}>导航栏右侧区域</div>
+        <div class={[bem.e('left')]}>{leftSideSlot?.()}</div>
+        <div class={[bem.e('right')]}>{rightSideSlot?.()}</div>
       </NLayoutHeader>
     );
   },

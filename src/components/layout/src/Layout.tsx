@@ -69,7 +69,7 @@ const Layout = defineComponent({
                 ? this.collapsedWidthRef
                 : this.sidebarWidthRef,
             }}>
-            <LayoutHeader></LayoutHeader>
+            <LayoutHeader>{$slots}</LayoutHeader>
             <NLayout
               class={[bem.e('content')]}
               position={'absolute'}

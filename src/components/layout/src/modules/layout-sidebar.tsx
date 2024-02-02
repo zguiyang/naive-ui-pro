@@ -55,7 +55,13 @@ export const LayoutSidebar = defineComponent({
             renderTitleLogo(collapsedRef)
           ) : (
             <>
-              {renderLogo ? renderLogo(collapsedRef) : null}
+              {renderLogo ? (
+                <div
+                  class={[bem.e('logo')]}
+                  style={{ marginRight: collapsedRef ? 0 : '12px' }}>
+                  {renderLogo(collapsedRef)}
+                </div>
+              ) : null}
               {collapsedRef ? null : (
                 <span class={[bem.e('title')]}>{titleRef}</span>
               )}
