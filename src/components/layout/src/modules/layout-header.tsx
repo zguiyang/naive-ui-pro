@@ -29,6 +29,7 @@ export const LayoutHeader = defineComponent({
         style={{ height: this.heightRef }}
         class={[bem.b()]}>
         <div class={[bem.e('left')]}>{leftSideSlot?.()}</div>
+        <div class={[bem.e('center')]}>1111</div>
         <div class={[bem.e('right')]}>{rightSideSlot?.()}</div>
       </NLayoutHeader>
     );

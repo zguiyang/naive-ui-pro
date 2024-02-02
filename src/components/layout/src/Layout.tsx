@@ -36,6 +36,7 @@ const Layout = defineComponent({
       headerPropsRef: computed(() => props.headerProps),
       contentPropsRef: computed(() => props.contentProps),
       sidePropsRef: computed(() => props.sideProps),
+      contentWidthRef: computed(() => props.contentWidth),
       handleToggleCollapsed,
       handleRenderLogo: props.renderLogo,
       handleRenderTitleLogo: props.renderTitleLogo,
@@ -84,10 +85,24 @@ const Layout = defineComponent({
           </NLayout>
         </NLayout>
       );
-    } else if (layoutModeRef === 'top') {
-      return <NLayout>top顶部布局</NLayout>;
     } else {
-      return <NLayout>mix混合布局</NLayout>;
+      return (
+        <NLayout
+          class={[bem.b(), bem.m(this.layoutModeRef)]}
+          {...mergeExternalPropsRef}
+          position='absolute'>
+          <LayoutHeader>{$slots}</LayoutHeader>
+          <NLayout
+            class={[bem.e('container-wrapper')]}
+            style={{ top: this.headerHeight, bottom: '48px' }}
+            position='absolute'>
+            <LayoutContent>{$slots.default?.()}</LayoutContent>
+          </NLayout>
+          <NLayoutFooter class={[bem.e('footer')]} position='absolute'>
+            页脚区域
+          </NLayoutFooter>
+        </NLayout>
+      );
     }
   },
 });

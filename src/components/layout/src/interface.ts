@@ -21,7 +21,7 @@ export const proLayoutProps = {
     default: undefined,
   },
   layoutMode: {
-    type: String as PropType<'side' | 'top' | 'mix'>,
+    type: String as PropType<'side' | 'top'>,
     default: 'side',
   },
   sidebarWidth: {
@@ -44,6 +44,7 @@ export const proLayoutProps = {
     type: [String, Number] as PropType<string | number>,
     default: 60,
   },
+  splitMenus: Boolean,
   renderLogo: {
     type: Function as PropType<(collapsed: boolean) => VNodeChild>,
     default: undefined,
@@ -77,11 +78,12 @@ export interface ProLayoutInjection {
   contentPropsRef: ComputedRef<ProLayoutProps['contentProps']>;
   sidePropsRef: ComputedRef<ProLayoutProps['sideProps']>;
   titleRef: Ref<string | undefined>;
-  layoutModeRef: ComputedRef<'side' | 'top' | 'mix'>;
+  layoutModeRef: ComputedRef<'side' | 'top'>;
   headerHeightRef: ComputedRef<string>;
   sidebarWidthRef: ComputedRef<string | number>;
   collapsedWidthRef: ComputedRef<string | number>;
   collapsedRef: Ref<boolean>;
+  contentWidthRef: ComputedRef<'fixed' | 'fluid'>;
   handleToggleCollapsed?: (collapsed: boolean) => void;
   handleRenderLogo?: ((collapsed: boolean) => VNodeChild) | undefined;
   handleRenderTitleLogo?: ((collapsed: boolean) => VNodeChild) | undefined;
