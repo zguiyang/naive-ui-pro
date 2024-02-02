@@ -7,9 +7,9 @@ import { ProLayout } from 'naive-ui-pro';
 
 import { BookFilled as BookIcon, HomeFilled } from '@vicons/antd';
 
-const modeArr: ['side', 'top', 'mix'] = ['side', 'top', 'mix'];
+const modeArr: Array<'top' | 'side'> = ['top', 'side'];
 const modeIndex = ref(0);
-const currentLayoutMode = ref<'side' | 'top' | 'mix'>(modeArr[modeIndex.value]);
+const currentLayoutMode = ref<'side' | 'top'>(modeArr[modeIndex.value]);
 
 const titleRef = ref('Naive UI pro');
 
