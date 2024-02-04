@@ -84,6 +84,58 @@ const menuOptions = [
       },
     ],
   },
+  {
+    label: '且听风吟',
+    key: 'hear-the-wind-sing0',
+    icon: renderIcon(BookIcon),
+  },
+  {
+    label: '1973年的弹珠玩具',
+    key: 'pinball-1973',
+    disabled: true,
+    icon: renderIcon(BookIcon),
+    children: [
+      {
+        label: '鼠',
+        key: 'rat',
+      },
+    ],
+  },
+
+  {
+    label: '且听风吟',
+    key: 'hear-the-wind-sing3',
+    icon: renderIcon(BookIcon),
+  },
+  {
+    label: '1973年的弹珠玩具',
+    key: 'pinball-1974',
+    disabled: true,
+    icon: renderIcon(BookIcon),
+    children: [
+      {
+        label: '鼠',
+        key: 'rat',
+      },
+    ],
+  },
+  {
+    label: '且听风吟',
+    key: 'hear-the-wind-sing5',
+    icon: renderIcon(BookIcon),
+  },
+  {
+    label: '1973年的弹珠玩具',
+    key: 'pinball-1976',
+    disabled: true,
+    icon: renderIcon(BookIcon),
+    children: [
+      {
+        label: '鼠',
+        key: 'rat',
+      },
+    ],
+  },
 ];
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) });
@@ -131,7 +183,7 @@ function renderLogo(collapsed: boolean) {
       options: menuOptions,
     }"
     :render-logo="renderLogo">
-    <template #left-side>导航栏左侧区域</template>
+    <!-- <template #left-side>LOGO区域</template> -->
     <template #right-side>导航栏右侧区域</template>
 
     <n-input v-model:value="titleRef"></n-input>
