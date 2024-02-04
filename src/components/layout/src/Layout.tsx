@@ -1,4 +1,11 @@
-import { computed, defineComponent, provide, ref, toRef } from 'vue';
+import {
+  computed,
+  defineComponent,
+  provide,
+  ref,
+  toRef,
+  watchEffect,
+} from 'vue';
 
 import { NLayout, NLayoutFooter } from 'naive-ui';
 
@@ -20,6 +27,10 @@ const Layout = defineComponent({
 
     const headerHeightRef = computed(() => formatCssUnit(props.headerHeight));
     const collapsedRef = ref(false);
+
+    watchEffect(() => {
+      collapsedRef.value = false;
+    });
 
     function handleToggleCollapsed(collapsed: boolean) {
       collapsedRef.value = collapsed;

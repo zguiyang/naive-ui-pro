@@ -17,6 +17,7 @@ export const LayoutSidebar = defineComponent({
 
     return {
       menuEXternalProps: LayoutProvide.menuPropsRef,
+      sideExternalProps: LayoutProvide.sidePropsRef,
       titleRef: LayoutProvide.titleRef,
       widthRef: LayoutProvide.sidebarWidthRef,
       collapsedWidthRef: LayoutProvide.collapsedWidthRef,
@@ -30,6 +31,7 @@ export const LayoutSidebar = defineComponent({
   render() {
     const {
       menuEXternalProps,
+      sideExternalProps,
       widthRef,
       collapsedWidthRef,
       collapsedRef,
@@ -42,9 +44,10 @@ export const LayoutSidebar = defineComponent({
     return (
       <NLayoutSider
         class={[bem.b()]}
-        show-trigger={true}
+        showTrigger={true}
+        {...sideExternalProps}
+        collapseMode={'width'}
         width={widthRef}
-        collapseMode='width'
         collapsed-width={collapsedWidthRef}
         onUpdateCollapsed={handleToggleCollapsed}
         nativeScrollbar={true}>
@@ -73,9 +76,9 @@ export const LayoutSidebar = defineComponent({
           style={{ height: `calc(100vh - ${headerHeightRef})` }}>
           <NScrollbar>
             <NMenu
+              {...menuEXternalProps}
               collapsed={collapsedRef}
-              collapsed-width={collapsedWidthRef}
-              options={menuEXternalProps?.options}></NMenu>
+              collapsed-width={collapsedWidthRef}></NMenu>
           </NScrollbar>
         </div>
       </NLayoutSider>
