@@ -179,6 +179,8 @@ function renderLogo(collapsed: boolean) {
   <pro-layout
     :title="titleRef"
     :layout-mode="currentLayoutMode"
+    content-width="fluid"
+    copy-right-text="© 2024 Naive UI pro"
     :menu-props="{
       options: menuOptions,
     }"
