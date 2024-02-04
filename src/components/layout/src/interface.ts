@@ -45,6 +45,7 @@ export const proLayoutProps = {
     default: 60,
   },
   splitMenus: Boolean,
+  copyRightText: String,
   renderLogo: {
     type: Function as PropType<(collapsed: boolean) => VNodeChild>,
     default: undefined,

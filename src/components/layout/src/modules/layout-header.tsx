@@ -19,6 +19,7 @@ export const LayoutHeader = defineComponent({
       titleRef: LayoutProvide.titleRef,
       heightRef: LayoutProvide.headerHeightRef,
       headerEXternalProps: LayoutProvide.headerPropsRef,
+      contentWidthRef: LayoutProvide.contentWidthRef,
       layoutModeRef: LayoutProvide.layoutModeRef,
       menuProps: computed(() => {
         const menuProps = cloneDeep(LayoutProvide.menuPropsRef.value ?? {});
@@ -35,6 +36,7 @@ export const LayoutHeader = defineComponent({
   render() {
     const {
       titleRef,
+      contentWidthRef,
       $slots,
       layoutModeRef,
       menuProps,
@@ -48,7 +50,7 @@ export const LayoutHeader = defineComponent({
       <NLayoutHeader
         {...this.headerEXternalProps}
         style={{ height: this.heightRef }}
-        class={[bem.b()]}>
+        class={[bem.b(), layoutModeRef === 'top' && bem.m(contentWidthRef)]}>
         <div class={[bem.e('left')]}>
           {leftSideSlot ? (
             leftSideSlot?.()

@@ -90,7 +90,7 @@ const Layout = defineComponent({
               }}>
               <LayoutContent>{$slots.default?.()}</LayoutContent>
               <NLayoutFooter class={[bem.e('footer')]} position='absolute'>
-                页脚区域
+                {this.copyRightText}
               </NLayoutFooter>
             </NLayout>
           </NLayout>
@@ -110,7 +110,7 @@ const Layout = defineComponent({
             <LayoutContent>{$slots.default?.()}</LayoutContent>
           </NLayout>
           <NLayoutFooter class={[bem.e('footer')]} position='absolute'>
-            页脚区域
+            {this.copyRightText}
           </NLayoutFooter>
         </NLayout>
       );
