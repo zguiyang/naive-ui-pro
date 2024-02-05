@@ -55,7 +55,7 @@ $base-class: $namespace + '-layout';
     }
   }
   &-content {
-    padding: 0 20px;
+    padding: 20px;
     &--fluid {
       width: 100%;
     }
@@ -74,30 +74,5 @@ $base-class: $namespace + '-layout';
   }
 
   &-sidebar {
-    &__logo-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    &__logo {
-      max-width: 100%;
-      height: auto;
-      overflow: hidden;
-    }
-    &__title {
-      font-size: 18px;
-    }
-  }
-
-  &.#{$base-class}--side {
-    .#{$base-class}-header {
-      padding-left: 0;
-      padding-right: 20px;
-    }
-  }
-  &.#{$base-class}--top {
-    .#{$base-class}__container-wrapper {
-      padding-top: 20px;
-    }
   }
 }

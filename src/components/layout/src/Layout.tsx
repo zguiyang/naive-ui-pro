@@ -64,7 +64,7 @@ const Layout = defineComponent({
     };
   },
   render() {
-    const { $slots, mergeExternalPropsRef, layoutModeRef, collapsedRef } = this;
+    const { $slots, mergeExternalPropsRef, layoutModeRef } = this;
 
     if (layoutModeRef === 'side') {
       return (
@@ -72,22 +72,17 @@ const Layout = defineComponent({
           class={[bem.b(), bem.m(this.layoutModeRef)]}
           {...mergeExternalPropsRef}
           position={'absolute'}>
-          <LayoutSidebar></LayoutSidebar>
+          <LayoutHeader>{$slots}</LayoutHeader>
           <NLayout
             class={[bem.e('container-wrapper')]}
             position={'absolute'}
+            has-sider={true}
             style={{
-              marginLeft: collapsedRef
-                ? this.collapsedWidthRef
-                : this.sidebarWidthRef,
+              top: this.headerHeight,
+              // bottom: '48px',
             }}>
-            <LayoutHeader>{$slots}</LayoutHeader>
-            <NLayout
-              class={[bem.e('content')]}
-              position={'absolute'}
-              style={{
-                top: this.headerHeight,
-              }}>
+            <LayoutSidebar></LayoutSidebar>
+            <NLayout class={[bem.e('content')]}>
               <LayoutContent>{$slots.default?.()}</LayoutContent>
               <NLayoutFooter class={[bem.e('footer')]} position='absolute'>
                 {this.copyRightText}

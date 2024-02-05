@@ -11,7 +11,7 @@ export function useLayoutData(props: ProLayoutProps) {
     if (props.layoutMode === 'top') {
       externalProps.hasSider = false;
     } else {
-      externalProps.hasSider = true;
+      externalProps.hasSider = false;
     }
     return externalProps;
   });
