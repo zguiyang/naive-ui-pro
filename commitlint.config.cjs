@@ -19,6 +19,7 @@ module.exports = {
         'build',
         'perf',
         'upd',
+        'test',
       ],
     ],
     'type-case': [0],
