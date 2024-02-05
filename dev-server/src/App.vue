@@ -2,7 +2,7 @@
 import { h, ref } from 'vue';
 import type { Component } from 'vue';
 
-import { NButton, NIcon, NInput } from 'naive-ui';
+import { NButton, NIcon, NInput, NSpace } from 'naive-ui';
 import { ProLayout } from 'naive-ui-pro';
 
 import { BookFilled as BookIcon, HomeFilled } from '@vicons/antd';
@@ -187,9 +187,10 @@ function renderLogo(collapsed: boolean) {
     :render-logo="renderLogo">
     <!-- <template #left-side>LOGO区域</template> -->
     <template #right-side>导航栏右侧区域</template>
-
-    <n-input v-model:value="titleRef"></n-input>
-    <n-button type="primary" @click="toggleLayoutMode">切换布局</n-button>
+    <n-space vertical :size="16">
+      <n-input v-model:value="titleRef"></n-input>
+      <n-button type="primary" @click="toggleLayoutMode">切换布局</n-button>
+    </n-space>
     <!-- <div style="background-color: blue; height: 120vh"></div> -->
     <!-- <div style="background-color: blue; height: 200px"></div> -->
   </pro-layout>
