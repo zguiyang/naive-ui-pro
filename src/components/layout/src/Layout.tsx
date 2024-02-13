@@ -79,7 +79,6 @@ const Layout = defineComponent({
             has-sider={true}
             style={{
               top: this.headerHeight,
-              // bottom: '48px',
             }}>
             <LayoutSidebar></LayoutSidebar>
             <NLayout class={[bem.e('content')]}>

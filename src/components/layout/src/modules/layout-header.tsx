@@ -18,7 +18,7 @@ export const LayoutHeader = defineComponent({
     return {
       titleRef: LayoutProvide.titleRef,
       heightRef: LayoutProvide.headerHeightRef,
-      headerEXternalProps: LayoutProvide.headerPropsRef,
+      headerExternalProps: LayoutProvide.headerPropsRef,
       contentWidthRef: LayoutProvide.contentWidthRef,
       layoutModeRef: LayoutProvide.layoutModeRef,
       menuProps: computed(() => {
@@ -48,7 +48,7 @@ export const LayoutHeader = defineComponent({
 
     return (
       <NLayoutHeader
-        {...this.headerEXternalProps}
+        {...this.headerExternalProps}
         bordered
         style={{ height: this.heightRef }}
         class={[bem.b(), layoutModeRef === 'top' && bem.m(contentWidthRef)]}>
