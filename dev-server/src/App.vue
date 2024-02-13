@@ -180,6 +180,11 @@ function renderLogo(collapsed: boolean) {
     :title="titleRef"
     :layout-mode="currentLayoutMode"
     content-width="fluid"
+    :side-props="{
+      onUpdateCollapsed: collapsed => {
+        console.log(collapsed);
+      },
+    }"
     copy-right-text="© 2024 Naive UI pro"
     :menu-props="{
       options: menuOptions,
