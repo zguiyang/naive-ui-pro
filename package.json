@@ -4,6 +4,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "pnpm --filter dev-server dev",
+    "docs:dev": "pnpm --filter docs dev",
+    "docs:build": "pnpm --filter docs build",
+    "docs:preview": "pnpm --filter docs preview",
     "build": "pnpm --filter build start",
     "build:bootstrap": "vite build -c vite.build.ts",
     "lint:build:bootstrap": "vue-tsc && vite build -c vite.build.ts",
