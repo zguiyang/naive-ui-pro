@@ -34,5 +34,6 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',
     'typescript-eslint/triple-slash-reference': 'off',
+		'@typescript-eslint/prefer-nullish-coalescing': 'off'
   },
 };
