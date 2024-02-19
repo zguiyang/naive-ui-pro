@@ -4,13 +4,17 @@ module.exports = {
     es2021: true,
     node: true,
   },
+	globals: {
+		__DEV__:"readonly",
+	},
   extends: [
-    'standard-with-typescript',
+		'eslint:recommended',
     'plugin:vue/vue3-essential',
     'prettier',
     'plugin:prettier/recommended',
+		'plugin:@typescript-eslint/recommended',
   ],
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint' ],
   parser: 'vue-eslint-parser',
   parserOptions: {
     parser: '@typescript-eslint/parser',
@@ -34,6 +38,6 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',
     'typescript-eslint/triple-slash-reference': 'off',
-		'@typescript-eslint/prefer-nullish-coalescing': 'off'
+		'@typescript-eslint/prefer-nullish-coalescing': 'off',
   },
 };
