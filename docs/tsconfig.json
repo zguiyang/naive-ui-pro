@@ -1,23 +1,14 @@
 {
+  "extends": ["../tsconfig.json"],
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "allowJs": false,
-    "strict": true,
-    "moduleResolution": "bundler",
-    "skipLibCheck": true,
-    "noUnusedLocals": true,
-    "experimentalDecorators": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "sourceMap": false,
-    "outDir": "dist",
-    "declaration": true,
-    "baseUrl": ".",
-    "paths": {
-      "@naive-ui-pro/*": ["../src/*"],
-    },
+    "strict": false,
+    "strictFunctionTypes": false,
   },
-  "include": ["**/*", ".vitepress/**/*"],
-  "exclude": ["node_modules"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "vite.config.ts",
+    "global.d.ts",
+  ],
 }

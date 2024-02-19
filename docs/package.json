@@ -1,29 +1,22 @@
 {
   "name": "@naive-ui-pro/docs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vitepress dev -c vite.config.ts",
-    "build": "vitepress build -c vite.config.ts",
-    "preview": "vitepress preview -c vite.config.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@intlify/unplugin-vue-i18n": "^2.0.0",
-    "@types/prismjs": "^1.26.3",
-    "autoprefixer": "^10.4.17",
-    "postcss": "^8.4.33",
-    "postcss-discard-duplicates": "^6.0.1",
-    "sass": "^1.70.0",
-    "vitepress": "1.0.0-rc.42"
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "prismjs": "^1.29.0",
-    "vue-i18n": "^9.9.1"
+    "highlight.js": "^11.9.0",
+    "vooks": "^0.2.12",
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "@types/highlightjs": "^9.12.6",
+    "@vicons/ionicons5": "^0.12.0",
+    "typescript": "^5.2.2"
   }
 }
