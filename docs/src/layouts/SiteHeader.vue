@@ -330,7 +330,7 @@ export default {
     return {
       renderMenuLabel,
       mobilePopoverRef,
-      tusimple: process.env.TUSIMPLE,
+      tusimple: import.meta.env.TUSIMPLE,
       dev: __DEV__,
       message,
       t,

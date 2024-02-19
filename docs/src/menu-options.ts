@@ -6,7 +6,6 @@ export const renderMenuLabel = option => {
   if (!('path' in option) || option.label === '--Debug') {
     return option.label;
   }
-
   return h(
     RouterLink,
     {
@@ -19,30 +18,28 @@ export const renderMenuLabel = option => {
 const appendCounts = item => {
   if (!item.children) {
     item.count = 1;
-
     return item;
   }
-
   if (item.children) {
     item.children.forEach(appendCounts);
-
     item.count = item.children.reduce((sum, item) => sum + item.count, 0);
-
     if (item.type === 'group') {
       item.en += ` (${item.count})`;
-
       item.zh += ` (${item.count})`;
     }
-
     return item;
   }
 };
 
+const createDebugDemos = (item, mode) => {
+  if (__DEV__ && mode === 'debug') {
+    return [item];
+  } else return [];
+};
+
 function createItems(lang, theme, prefix, items) {
   const isZh = lang === 'zh-CN';
-
   const langKey = isZh ? 'zh' : 'en';
-
   return items.map(rawItem => {
     const item = {
       ...rawItem,
@@ -50,41 +47,24 @@ function createItems(lang, theme, prefix, items) {
       label: rawItem[langKey] || rawItem.en,
       extra: rawItem.enSuffix && isZh ? rawItem.en : undefined,
       path: rawItem.path
-        ? `/${lang}/${theme}${prefix}${rawItem.path}`
+        ? `/${lang}/${theme}` + prefix + rawItem.path
         : undefined,
-      cnComponent: rawItem.path
-        ? prefix === '/docs'
-          ? `../pages/docs${rawItem.path}/zhCN/index.md`
-          : `../../documents${rawItem.path}/demos/zhCN/index.demo-entry.md`
-        : null,
-      routerPath: rawItem.path ? rawItem.path.substr(1) : null,
     };
-
-    if (rawItem.path) {
-      item.path = `/${lang}/${theme}${prefix}${rawItem.path}`;
-
-      if (prefix === '/docs') {
-        item.cnComponent = async () =>
-          await import(`./demo/pages/docs/${rawItem.path}/zhCN/index.md`);
-      } else {
-        item.cnComponent = async () =>
-          await import(
-            `./documents/${rawItem.path}/demos/zhCN/index.demo-entry.md`
-          );
-      }
-    }
-
     if (rawItem.children) {
       item.children = createItems(lang, theme, prefix, rawItem.children);
     }
-
     return item;
   });
 }
 
-export function createDocumentationMenuOptions(
-  { lang, theme } = { lang: 'zh-CN', theme: 'os-theme' }
-) {
+export function createDocumentationMenuOptions({
+  lang,
+  theme,
+}: {
+  lang: string;
+  theme: string;
+  mode: string;
+}) {
   return createItems(lang, theme, '/docs', [
     {
       en: 'Introduction',
@@ -92,8 +72,8 @@ export function createDocumentationMenuOptions(
       type: 'group',
       children: [
         {
-          en: 'Hash Stacs UI',
-          zh: 'Hash Stacs UI',
+          en: 'Naive UI',
+          zh: 'Naive UI',
           path: '/introduction',
         },
       ],
@@ -108,11 +88,11 @@ export function createDocumentationMenuOptions(
           zh: '安装',
           path: '/installation',
         },
-        /*      {
+        {
           en: 'Usage in SFC',
           zh: '在 SFC 中使用',
           path: '/usage-sfc',
-        }, */
+        },
         {
           en: 'Configuring Fonts',
           zh: '配置字体',
@@ -123,21 +103,16 @@ export function createDocumentationMenuOptions(
           zh: '按需引入',
           path: '/import-on-demand',
         },
-        /*  {
+        {
           en: 'Supported Platforms',
           zh: '支持的平台',
           path: '/supported-platforms',
-        }, */
+        },
         {
           en: 'Common Issues',
           zh: '常见问题',
           path: '/common-issues',
         },
-        /*       {
-          en: 'Controlled & Uncontrolled',
-          zh: '受控与非受控',
-          path: '/controlled-uncontrolled',
-        }, */
       ],
     },
     {
@@ -145,31 +120,31 @@ export function createDocumentationMenuOptions(
       zh: '指南',
       type: 'group',
       children: [
-        /* {
-          en: 'Internationalization',
-          zh: '国际化',
-          path: '/i18n',
+        {
+          en: 'JSX & TSX',
+          zh: 'JSX & TSX',
+          path: '/jsx',
+        },
+        {
+          en: 'Server-Sider Rendering',
+          zh: '服务端渲染 SSR',
+          path: '/ssr',
+        },
+        {
+          en: 'Customizing Theme',
+          zh: '调整主题',
+          path: '/customize-theme',
         },
         {
           en: 'Create Themed Component',
           zh: '创建适配主题的组件',
           path: '/theme',
         },
-        {
-          en: 'Potential Style Conflict',
-          zh: '潜在的样式冲突',
-          path: '/style-conflict',
-        },
-        {
-          en: 'Third-Party Libraries',
-          zh: '社区精选资源',
-          path: '/community',
-        },
-        {
-          en: 'naiveUI-to-hashStacsUI',
-          zh: '从naiveUI迁移',
-          path: '/naiveUI-to-hashStacsUI',
-        }, */
+        // {
+        //   en: 'Experimental Features',
+        //   zh: '试验性特性',
+        //   path: '/experimental-features'
+        // }
       ],
     },
     {
@@ -182,14 +157,17 @@ export function createDocumentationMenuOptions(
           zh: '变更日志',
           path: '/changelog',
         },
+        // {
+        //   en: 'Migrate From V1',
+        //   zh: '从 V1 升级',
+        //   path: '/from-v1'
+        // }
       ],
     },
   ]);
 }
 
-export function createComponentMenuOptions(
-  { lang, theme } = { lang: 'zh-CN', theme: 'os-theme' }
-) {
+export function createComponentMenuOptions({ lang, theme, mode }) {
   return createItems(lang, theme, '/components', [
     appendCounts({
       zh: '通用组件',
@@ -273,12 +251,6 @@ export function createComponentMenuOptions(
           zh: '排印',
           enSuffix: true,
           path: '/typography',
-        },
-        {
-          en: 'Watermark',
-          zh: '水印',
-          enSuffix: true,
-          path: '/watermark',
         },
       ],
     }),
@@ -390,12 +362,6 @@ export function createComponentMenuOptions(
           path: '/time-picker',
         },
         {
-          en: 'Legacy Transfer',
-          zh: '旧版穿梭框',
-          enSuffix: true,
-          path: '/legacy-transfer',
-        },
-        {
           en: 'Transfer',
           zh: '穿梭框',
           enSuffix: true,
@@ -425,12 +391,6 @@ export function createComponentMenuOptions(
           zh: '日历',
           enSuffix: true,
           path: '/calendar',
-        },
-        {
-          en: 'Countdown',
-          zh: '倒计时',
-          enSuffix: true,
-          path: '/countdown',
         },
         {
           en: 'Code',
@@ -473,12 +433,6 @@ export function createComponentMenuOptions(
           zh: '日志',
           enSuffix: true,
           path: '/log',
-        },
-        {
-          en: 'Number Animation',
-          zh: '数值动画',
-          enSuffix: true,
-          path: '/number-animation',
         },
         {
           en: 'Statistic',
@@ -688,12 +642,6 @@ export function createComponentMenuOptions(
           path: '/layout',
         },
         {
-          en: 'Legacy Grid',
-          zh: '旧版栅格',
-          enSuffix: true,
-          path: '/legacy-grid',
-        },
-        {
           en: 'Grid',
           zh: '栅格',
           enSuffix: true,
@@ -704,31 +652,6 @@ export function createComponentMenuOptions(
           zh: '间距',
           enSuffix: true,
           path: '/space',
-        },
-      ],
-    }),
-    appendCounts({
-      zh: '工具组件',
-      en: 'Utility Components',
-      type: 'group',
-      children: [
-        {
-          en: 'Collapse Transition',
-          zh: '折叠渐变',
-          enSuffix: true,
-          path: '/collapse-transition',
-        },
-        {
-          en: 'Discrete API',
-          zh: '独立 API',
-          enSuffix: true,
-          path: '/discrete',
-        },
-        {
-          en: 'Scrollbar',
-          zh: '滚动条',
-          enSuffix: true,
-          path: '/scrollbar',
         },
       ],
     }),
@@ -757,5 +680,74 @@ export function createComponentMenuOptions(
         },
       ],
     }),
+    {
+      zh: '废弃',
+      en: 'Deprecated',
+      type: 'group',
+      children: [
+        {
+          en: 'Legacy Grid',
+          zh: '旧版栅格',
+          enSuffix: true,
+          path: '/legacy-grid',
+        },
+      ],
+    },
+    ...createDebugDemos(
+      {
+        en: '--Debug',
+        children: [
+          {
+            en: 'SuffixDebug',
+            path: '/base-suffix-debug',
+          },
+          {
+            en: 'PopoverDebug',
+            path: '/popover-debug',
+          },
+          {
+            en: 'RouterDebug',
+            path: '/router-debug',
+          },
+          {
+            en: 'ModalDebug',
+            path: '/modal-debug',
+          },
+          {
+            en: 'ScrollbarDebug',
+            path: '/scrollbar-debug',
+          },
+          {
+            en: 'ScrollbarDebug2',
+            path: '/scrollbar-debug2',
+          },
+          {
+            en: 'DatePickerDebug',
+            path: '/date-picker-debug',
+          },
+          {
+            en: 'BackTopDebug',
+            path: '/back-top-debug',
+          },
+          {
+            en: 'CascaderDebug',
+            path: '/cascader-debug',
+          },
+          {
+            en: 'VerticalAlignDebug',
+            path: '/vertical-align-debug',
+          },
+          {
+            en: 'IconTransitionDebug',
+            path: '/icon-transition-debug',
+          },
+          {
+            en: 'SelectDebug',
+            path: '/select-debug',
+          },
+        ],
+      },
+      mode
+    ),
   ]);
 }

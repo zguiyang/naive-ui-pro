@@ -10,7 +10,7 @@ import { onMounted } from 'vue';
 
 import { useLoadingBar } from 'naive-ui';
 
-import { loadingBarApiRef } from '../router';
+import { loadingBarApiRef } from '../router/router.ts';
 import { useIsMobile } from '../utils/composables';
 import SiteHeader from './SiteHeader.vue';
 

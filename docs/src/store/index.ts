@@ -106,7 +106,7 @@ const themeRef = computed(() => {
 // config provider
 
 const configProviderNameRef = ref(
-  process.env.TUSIMPLE ? 'tusimple' : 'default'
+  import.meta.env.TUSIMPLE ? 'tusimple' : 'default'
 );
 
 const configProviderRef = computed(() => {
