@@ -148,7 +148,7 @@ export default defineComponent({
         {
           key: 'component',
           label: t('component'),
-          path: themeAndLocaleReg.exec(route.path)[0] + '/components/button',
+          path: themeAndLocaleReg.exec(route.path)[0] + '/components/layout',
         },
       ];
     });
@@ -186,7 +186,7 @@ export default defineComponent({
         {
           key: 'component',
           label: t('component'),
-          path: themeAndLocaleReg.exec(route.path)[0] + '/components/button',
+          path: themeAndLocaleReg.exec(route.path)[0] + '/components/layout',
           children: componentOptionsRef.value,
         },
         {

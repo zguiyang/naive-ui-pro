@@ -56,9 +56,19 @@ export const zhDocRoutes = [
   },
 ];
 
-export const enComponentRoutes = [];
+export const enComponentRoutes = [
+  {
+    path: 'layout',
+    component: () => import('../../demos/layout/enUS/index.demo-entry.md'),
+  },
+];
 
-export const zhComponentRoutes = [];
+export const zhComponentRoutes = [
+  {
+    path: 'layout',
+    component: () => import('../../demos/layout/zhCN/index.demo-entry.md'),
+  },
+];
 
 export const routes: RouteRecordRaw[] = [
   {

@@ -1,4 +1,4 @@
-const terseCssr = require('./utils/terse-cssr.js')
+const terseCssr = require('./utils/terse-cssr')
 
 module.exports = () => {
   return {

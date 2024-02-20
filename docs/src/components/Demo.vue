@@ -79,7 +79,7 @@
 <script lang="ts">
 import { computed, defineComponent, nextTick, ref, watch } from 'vue';
 
-import { CodeFilled as CodeOutline } from '@vicons/antd';
+import { CodeOutlined as CodeOutline } from '@vicons/antd';
 
 import { useDisplayMode } from '../store';
 import { i18n } from '../utils/composables.ts';
@@ -159,7 +159,7 @@ export default defineComponent({
         'zh-CN': {
           show: '显示代码',
           hide: '收起代码',
-          editOnGithub: '在 GitLab 中编辑',
+          editOnGithub: '在 Github 中编辑',
           copyCode: '复制代码',
           copySuccess: '复制成功',
         },

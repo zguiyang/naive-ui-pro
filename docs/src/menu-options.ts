@@ -136,10 +136,10 @@ export function createComponentMenuOptions({
       type: 'group',
       children: [
         {
-          en: 'Avatar',
-          zh: '头像',
+          en: 'Layout',
+          zh: '高级布局',
           enSuffix: true,
-          path: '/avatar',
+          path: '/layout',
         },
       ],
     }),

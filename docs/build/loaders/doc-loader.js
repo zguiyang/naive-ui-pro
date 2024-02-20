@@ -1,5 +1,5 @@
-const convertMd2Doc = require('./convert-md-to-doc.js')
-const projectPath = require('./project-path.js')
+const convertMd2Doc = require('./convert-md-to-doc')
+const projectPath = require('./project-path')
 
 module.exports = async function (content, path) {
   const env = process.env.NODE_ENV

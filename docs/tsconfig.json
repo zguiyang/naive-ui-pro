@@ -8,7 +8,9 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
+    "demos/**/*.vue",
     "vite.config.ts",
     "global.d.ts",
+    "md.d.ts",
   ],
 }
