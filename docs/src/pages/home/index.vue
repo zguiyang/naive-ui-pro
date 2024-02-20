@@ -9,7 +9,7 @@
         <span
           @mouseenter="handleTitleMouseEnter"
           @mouseleave="handleTitleMouseLeave"
-          >Na{{ hover ? 'ï' : 'i' }}ve UI</span
+          >Na{{ hover ? 'ï' : 'i' }}ve UI Pro</span
         >
       </n-h1>
       <n-p style="font-size: 16px; margin-top: 0; margin-bottom: 0">
@@ -52,7 +52,8 @@
 </template>
 
 <script lang="ts">
-import { computed } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 import { useThemeName } from '../../store';
 import { i18n, useIsMobile, useIsTablet } from '../../utils/composables';
@@ -60,18 +61,48 @@ import LandingFooter from './footer.vue';
 import leftImage from './left.vue';
 import rightImage from './right.vue';
 
-export default {
+export default defineComponent({
   components: {
     LandingFooter,
     leftImage,
     rightImage,
   },
   setup() {
+    const router = useRouter();
+    const route = useRoute();
+
+    const themeOptions = {
+      dark: {
+        next: 'light',
+      },
+      light: {
+        next: 'dark',
+      },
+    };
+
+    const hoverRef = ref(false);
     const isMobileRef = useIsMobile();
+    const themeRef = useThemeName();
+
+    function handleStartClick() {
+      router.push(route.path + '/docs/installation');
+    }
+    function handleTitleMouseEnter() {
+      hoverRef.value = true;
+    }
+    function handleTitleMouseLeave() {
+      hoverRef.value = false;
+    }
+    function handleThemeChangeClick() {
+      themeRef.value = themeOptions[themeRef.value].next;
+    }
+
     return {
+      themeOptions,
+      hover: hoverRef,
       isMobile: isMobileRef,
       isTablet: useIsTablet(),
-      theme: useThemeName(),
+      theme: themeRef,
       titleStyle: computed(() => {
         if (isMobileRef.value) {
           return 'margin-top: 0; font-size: 64px !important';
@@ -82,50 +113,28 @@ export default {
       ...i18n({
         'zh-CN': {
           start: '开始使用',
-          intro1: '一个 Vue 3 组件库',
-          intro2: '比较完整，主题可调，使用 TypeScript，不算太慢',
-          intro3: '有点意思',
+          intro1: '一个基于 Naive UI的组件库',
+          intro2:
+            '在 Naive UI 上进行了自己的封装，简单易用, 无需魔改, 与Naive UI 项目无缝对接',
+          intro3: '只为开发更简单',
           intro4: '换个主题',
         },
         'en-US': {
           start: 'Get Started',
-          intro1: 'A Vue 3 Component Library',
+          intro1: 'A component library based on Naive UI',
           intro2:
-            'Fairly Complete, Customizable Themes, Uses TypeScript, Not Too Slow',
-          intro3: 'Kinda Interesting',
+            'Encapsulated on top of Naive UI, simple and easy to use, no need for modification, seamlessly integrated with the Naive UI project',
+          intro3: 'Just to make development simpler',
           intro4: 'Change Theme',
         },
       }),
+      handleStartClick,
+      handleTitleMouseEnter,
+      handleTitleMouseLeave,
+      handleThemeChangeClick,
     };
   },
-  data() {
-    return {
-      hover: false,
-      themeOptions: {
-        dark: {
-          next: 'light',
-        },
-        light: {
-          next: 'dark',
-        },
-      },
-    };
-  },
-  methods: {
-    handleStartClick() {
-      this.$router.push(this.$route.path + '/docs/installation');
-    },
-    handleTitleMouseEnter() {
-      this.hover = true;
-    },
-    handleTitleMouseLeave() {
-      this.hover = false;
-    },
-    handleThemeChangeClick() {
-      this.theme = this.themeOptions[this.theme].next;
-    },
-  },
-};
+});
 </script>
 
 <style scoped>

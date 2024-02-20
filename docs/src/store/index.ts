@@ -20,38 +20,30 @@ import { i18n, useIsMobile } from '../utils/composables';
 import hljs from './hljs';
 
 let route = null;
-
 let router = null;
 
 export function initRouter(_router, _route) {
   route = _route;
-
   router = _router;
-
   localeNameRef = useMemo({
     get() {
-      return route.path?.startsWith('/zh-CN') ? 'zh-CN' : 'en-US';
+      return route.path.startsWith('/zh-CN') ? 'zh-CN' : 'en-US';
     },
     set(locale) {
       router.push(changeLangInPath(route.fullPath, locale));
     },
   });
-
   dateLocaleRef = useMemo(() => {
-    return route.path?.startsWith('/zh-CN') ? dateZhCN : dateEnUS;
+    return route.path.startsWith('/zh-CN') ? dateZhCN : dateEnUS;
   });
-
-  rawThemeNameRef.value = useMemo(() => route.params.theme);
-
-  themeNameRef.value = useMemo({
+  rawThemeNameRef = useMemo(() => route.params.theme);
+  themeNameRef = useMemo({
     get() {
       switch (route.params.theme) {
         case 'os-theme':
           return osThemeRef.value;
-
         case 'dark':
           return 'dark';
-
         default:
           return 'light';
       }
@@ -63,58 +55,42 @@ export function initRouter(_router, _route) {
 }
 
 // display mode
-
 const _displayModeRef = ref(window.localStorage.getItem('mode') ?? 'debug');
-
 const displayModeRef = computed({
   get() {
     return _displayModeRef.value;
   },
   set(value) {
     _displayModeRef.value = value;
-
     window.localStorage.setItem('mode', value);
   },
 });
 
 // locale
-
 let localeNameRef = null;
-
 const localeRef = computed(() => {
   return localeNameRef.value === 'zh-CN' ? zhCN : enUS;
 });
 
 // useMemo
-
 let dateLocaleRef = null;
 
 // theme
-
 const osThemeRef = useOsTheme();
-
-const themeNameRef = ref(null);
-
-const rawThemeNameRef = ref(null); // could be `os-theme`
-
+let themeNameRef = null;
+let rawThemeNameRef = null; // could be `os-theme`
 const themeRef = computed(() => {
   const { value } = themeNameRef;
-
   return value === 'dark' ? darkTheme : null;
 });
 
 // config provider
-
-const configProviderNameRef = ref(
-  import.meta.env.TUSIMPLE ? 'tusimple' : 'default'
-);
-
+const configProviderNameRef = ref('default');
 const configProviderRef = computed(() => {
   return NConfigProvider;
 });
 
 // options
-
 const docOptionsRef = computed(() =>
   createDocumentationMenuOptions({
     theme: rawThemeNameRef.value,
@@ -122,7 +98,6 @@ const docOptionsRef = computed(() =>
     mode: displayModeRef.value,
   })
 );
-
 const componentOptionsRef = computed(() =>
   createComponentMenuOptions({
     theme: rawThemeNameRef.value,
@@ -130,31 +105,23 @@ const componentOptionsRef = computed(() =>
     mode: displayModeRef.value,
   })
 );
-
 const flattenedDocOptionsRef = computed(() => {
   const flattenedItems = [];
-
   const traverse = items => {
     if (!items) return;
-
     items.forEach(item => {
       if (item.children) traverse(item.children);
       else flattenedItems.push(item);
     });
   };
-
   traverse(docOptionsRef.value);
-
   traverse(componentOptionsRef.value);
-
   return flattenedItems;
 });
 
 export function siteSetup() {
   i18n.provide(computed(() => localeNameRef.value));
-
   const isMobileRef = useIsMobile();
-
   return {
     themeEditorStyle: computed(() => {
       return isMobileRef.value ? 'right: 18px; bottom: 24px;' : undefined;
@@ -170,21 +137,18 @@ export function siteSetup() {
 
 function changeLangInPath(path, lang) {
   const langReg = /^\/(zh-CN|en-US)\//;
-
   return path.replace(langReg, `/${lang}/`);
 }
 
 function changeThemeInPath(path, theme) {
   const themeReg = /(^\/[^/]+\/)([^/]+)/;
-
-  return path.replace(themeReg, `$1${theme}`);
+  return path.replace(themeReg, '$1' + theme);
 }
 
 export function push(partialPath) {
   const { fullPath } = route;
-
   router.push(
-    fullPath.replace(/(^\/[^/]+\/[^/]+)((\/.*)|$)/, `$1${partialPath}`)
+    fullPath.replace(/(^\/[^/]+\/[^/]+)((\/.*)|$)/, '$1' + partialPath)
   );
 }
 

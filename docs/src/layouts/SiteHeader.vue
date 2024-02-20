@@ -1,8 +1,8 @@
 <template>
   <n-layout-header bordered class="nav" :style="style">
     <n-text tag="div" class="ui-logo" :depth="1" @click="handleLogoClick">
-      <img src="./assets/images/naivelogo.svg" />
-      <span v-if="!isMobile">Naive UI</span>
+      <img src="../assets/naivelogo.svg" />
+      <span v-if="!isMobile">Naive UI Pro</span>
     </n-text>
     <div :style="!isMobile ? 'display: flex; align-items: center;' : ''">
       <div class="nav-menu" v-if="!(isMobile || isTablet)">
@@ -53,26 +53,12 @@
       <n-text class="nav-picker">
         {{ version }}
       </n-text>
-      <n-button
-        v-if="dev"
-        text
-        class="nav-picker"
-        @click="handleDisplayModeUpdate">
-        {{ displayModeLabelMap[displayMode] }}
-      </n-button>
-      <n-button
-        v-if="tusimple || dev"
-        text
-        class="nav-picker"
-        @click="handleConfigProviderUpdate">
-        {{ cfgProviderLabelMap[configProviderName] }}
-      </n-button>
     </div>
   </n-layout-header>
 </template>
 
 <script lang="ts">
-import { computed, ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { useMessage, version } from 'naive-ui';
@@ -130,7 +116,7 @@ const locales = {
   },
 };
 
-export default {
+export default defineComponent({
   name: 'SiteHeader',
   components: {
     MenuOutline,
@@ -264,13 +250,6 @@ export default {
       common: 'Debug',
       debug: 'Prod',
     };
-    function handleDisplayModeUpdate() {
-      if (displayModeRef.value === 'common') {
-        displayModeRef.value = 'debug';
-      } else {
-        displayModeRef.value = 'common';
-      }
-    }
 
     // config provider
     const configProviderNameRef = useConfigProviderName();
@@ -278,13 +257,6 @@ export default {
       tusimple: t('defaultTheme'),
       default: t('tusimpleTheme'),
     }));
-    function handleConfigProviderUpdate() {
-      if (configProviderNameRef.value === 'tusimple') {
-        configProviderNameRef.value = 'default';
-      } else {
-        configProviderNameRef.value = 'tusimple';
-      }
-    }
 
     // search
     const searchableOptionsRef = useFlattenedDocOptions();
@@ -345,7 +317,6 @@ export default {
       // displayMode
       displayMode: displayModeRef,
       displayModeLabelMap,
-      handleDisplayModeUpdate,
       // locale
       locale: localeNameRef,
       localeLabelMap,
@@ -353,7 +324,6 @@ export default {
       // configProvider
       configProviderName: configProviderNameRef,
       cfgProviderLabelMap: cfgProviderLabelMapRef,
-      handleConfigProviderUpdate,
       // search
       searchPattern: searchPatternRef,
       searchOptions: searchOptionsRef,
@@ -381,7 +351,7 @@ export default {
       }),
     };
   },
-};
+});
 </script>
 
 <style scoped>

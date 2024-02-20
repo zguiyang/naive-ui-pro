@@ -41,7 +41,7 @@ import { renderMenuLabel } from '../menu-options.ts';
 import { useComponentOptions, useDocOptions } from '../store';
 import { useIsMobile, useIsTablet } from '../utils/composables.ts';
 import { findMenuValue } from '../utils/route.ts';
-import SiteFooter from './home/Footer.vue';
+import SiteFooter from './home/footer.vue';
 
 export default {
   components: {

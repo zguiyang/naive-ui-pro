@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { Plugin, createApp } from 'vue';
 
 import naive, { NThemeEditor } from 'naive-ui';
 
@@ -12,7 +12,7 @@ const app = createApp(SiteRoot);
 const router = createDemoRouter(routes);
 
 app.use(router);
-app.use(() => naive);
+app.use(naive as Plugin);
 app.component('NThemeEditor', NThemeEditor);
 installDemoComponents(app);
 

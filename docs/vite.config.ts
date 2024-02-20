@@ -1,6 +1,5 @@
 // import vue from '@vitejs/plugin-vue';
 // import vueJsx from '@vitejs/plugin-vue-jsx';
-import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
 
@@ -12,10 +11,13 @@ export default defineConfig({
   plugins: [
     createDemoPlugin(),
     Components({
-      resolvers: [NaiveUiResolver()],
-      dts: true,
+      resolvers: [],
+      dts: false,
     }),
   ],
+  server: {
+    port: 3002,
+  },
   define: {
     __DEV__: process.env.NODE_ENV !== 'production',
   },
