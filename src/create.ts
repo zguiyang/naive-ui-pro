@@ -1,4 +1,4 @@
-import type { App } from 'vue';
+import type { App, Component, DefineComponent } from 'vue';
 
 import version from './version';
 
@@ -6,14 +6,17 @@ type ComponentType = any;
 
 export interface NaiveUiProInstance {
   version: string;
+  componentPrefix: string;
   install: (app: App) => void;
 }
 
 interface NaiveUiProCreateOptions {
   components?: ComponentType[];
+  componentPrefix?: string;
 }
 
 function create({
+  componentPrefix = 'pro',
   components = [],
 }: NaiveUiProCreateOptions = {}): NaiveUiProInstance {
   const installTargets: App[] = [];
@@ -23,10 +26,13 @@ function create({
     name: string,
     component: ComponentType
   ): void {
-    const registered = app.component(name);
+    const registered = app.component(componentPrefix + name);
 
     if (!registered) {
-      app.component(name, component);
+      app.component(
+        componentPrefix + name,
+        component as Component<any> | DefineComponent<any>
+      );
     }
   }
 
@@ -49,6 +55,7 @@ function create({
   }
 
   return {
+    componentPrefix,
     install,
     version,
   };

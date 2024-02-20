@@ -19,7 +19,7 @@ import { LayoutSidebar } from './modules/layout-sidebar';
 
 const bem = useBemNamespace('layout');
 const Layout = defineComponent({
-  name: bem.name,
+  name: 'Layout',
   props: proLayoutProps,
   setup(props) {
     const { titleRef, layoutModeRef, mergeExternalPropsRef } =
