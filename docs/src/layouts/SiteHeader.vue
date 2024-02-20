@@ -61,7 +61,8 @@
 import { computed, defineComponent, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { useMessage, version } from 'naive-ui';
+import { useMessage } from 'naive-ui';
+import { version } from 'naive-ui-pro';
 
 import { MenuOutline } from '@vicons/ionicons5';
 
