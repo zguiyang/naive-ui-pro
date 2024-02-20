@@ -11,6 +11,6 @@
     "demos/**/*.vue",
     "vite.config.ts",
     "global.d.ts",
-    "md.d.ts",
+    "markdown.d.ts",
   ],
 }
