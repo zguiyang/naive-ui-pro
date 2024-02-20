@@ -6,17 +6,14 @@ type ComponentType = any;
 
 export interface NaiveUiProInstance {
   version: string;
-  componentPrefix: string;
   install: (app: App) => void;
 }
 
 interface NaiveUiProCreateOptions {
   components?: ComponentType[];
-  componentPrefix?: string;
 }
 
 function create({
-  componentPrefix = 'pro',
   components = [],
 }: NaiveUiProCreateOptions = {}): NaiveUiProInstance {
   const installTargets: App[] = [];
@@ -26,10 +23,10 @@ function create({
     name: string,
     component: ComponentType
   ): void {
-    const registered = app.component(componentPrefix + name);
+    const registered = app.component(name);
 
     if (!registered) {
-      app.component(componentPrefix + name, component);
+      app.component(name, component);
     }
   }
 
@@ -52,7 +49,6 @@ function create({
   }
 
   return {
-    componentPrefix,
     install,
     version,
   };
