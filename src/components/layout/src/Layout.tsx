@@ -1,11 +1,4 @@
-import {
-  computed,
-  defineComponent,
-  provide,
-  ref,
-  toRef,
-  watchEffect,
-} from 'vue';
+import { computed, defineComponent, provide, ref, toRef } from 'vue';
 
 import { NLayout, NLayoutFooter } from 'naive-ui';
 
@@ -19,28 +12,22 @@ import { LayoutSidebar } from './modules/layout-sidebar';
 
 const bem = useBemNamespace('layout');
 const Layout = defineComponent({
-  name: 'Layout',
+  name: bem.name,
   props: proLayoutProps,
   setup(props) {
     const { titleRef, layoutModeRef, mergeExternalPropsRef } =
       useLayoutData(props);
 
     const headerHeightRef = computed(() => formatCssUnit(props.headerHeight));
-    const collapsedRef = ref(false);
-
-    watchEffect(() => {
-      collapsedRef.value = false;
-    });
+    const provideCollapsedRef = ref(false);
 
     function handleToggleCollapsed(collapsed: boolean) {
-      collapsedRef.value = collapsed;
+      provideCollapsedRef.value = collapsed;
     }
 
     provide(layoutInjectionKey, {
-      collapsedRef,
+      provideCollapsedRef: provideCollapsedRef,
       headerHeightRef,
-      sidebarWidthRef: computed(() => props.sidebarWidth),
-      collapsedWidthRef: computed(() => props.collapsedWidth),
       titleRef: toRef(props, 'title'),
       layoutModeRef: computed(() => props.layoutMode),
       menuPropsRef: computed(() => props.menuProps),
@@ -57,9 +44,6 @@ const Layout = defineComponent({
       titleRef,
       layoutModeRef,
       mergeExternalPropsRef,
-      collapsedRef,
-      sidebarWidthRef: ref(formatCssUnit(props.sidebarWidth)),
-      collapsedWidthRef: ref(formatCssUnit(props.collapsedWidth)),
       headerHeight: headerHeightRef,
     };
   },

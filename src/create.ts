@@ -15,6 +15,13 @@ interface NaiveUiProCreateOptions {
   componentPrefix?: string;
 }
 
+function genreComponentName(name: string, prefix: string): string {
+  if (name.match(/^(Pro[A-Z]|pro-[a-z])/)) {
+    return name;
+  }
+  return prefix + name;
+}
+
 function create({
   componentPrefix = 'pro',
   components = [],
@@ -26,11 +33,11 @@ function create({
     name: string,
     component: ComponentType
   ): void {
-    const registered = app.component(componentPrefix + name);
+    const registered = app.component(genreComponentName(name, componentPrefix));
 
     if (!registered) {
       app.component(
-        componentPrefix + name,
+        genreComponentName(name, componentPrefix),
         component as Component<any> | DefineComponent<any>
       );
     }

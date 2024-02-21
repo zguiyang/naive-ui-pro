@@ -1,6 +1,8 @@
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 import { NLayoutSider, NMenu, layoutSiderProps } from 'naive-ui';
+
+import { useMergedState } from 'vooks';
 
 import { useBemNamespace } from '../../../_utils';
 import { useLayoutProvide } from '../hooks';
@@ -13,14 +15,17 @@ export const LayoutSidebar = defineComponent({
   setup() {
     const { LayoutProvide } = useLayoutProvide();
 
-    const collapsedRef = LayoutProvide.collapsedRef;
+    const sideExternalProps = LayoutProvide.sidePropsRef;
+
+    const mergedCollapsedRef = useMergedState(
+      ref(sideExternalProps.value?.collapsed),
+      LayoutProvide.provideCollapsedRef
+    );
 
     return {
       menuEXternalProps: LayoutProvide.menuPropsRef,
       sideExternalProps: LayoutProvide.sidePropsRef,
-      widthRef: LayoutProvide.sidebarWidthRef,
-      collapsedWidthRef: LayoutProvide.collapsedWidthRef,
-      collapsedRef,
+      mergedCollapsed: mergedCollapsedRef,
       handleToggleCollapsed: LayoutProvide.handleToggleCollapsed,
     };
   },
@@ -28,26 +33,20 @@ export const LayoutSidebar = defineComponent({
     const {
       menuEXternalProps,
       sideExternalProps,
-      widthRef,
-      collapsedWidthRef,
-      collapsedRef,
+      mergedCollapsed,
       handleToggleCollapsed,
     } = this;
     return (
       <NLayoutSider
         class={[bem.b()]}
         showTrigger={true}
-        {...sideExternalProps}
         collapseMode={'width'}
-        width={widthRef}
-        collapsed-width={collapsedWidthRef}
+        {...sideExternalProps}
+        collapsed={mergedCollapsed}
         onUpdateCollapsed={handleToggleCollapsed}
         nativeScrollbar={true}>
         <div class={[bem.e('menus')]}>
-          <NMenu
-            {...menuEXternalProps}
-            collapsed={collapsedRef}
-            collapsed-width={collapsedWidthRef}></NMenu>
+          <NMenu collapsed={mergedCollapsed} {...menuEXternalProps}></NMenu>
         </div>
       </NLayoutSider>
     );
