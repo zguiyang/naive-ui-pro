@@ -11,6 +11,9 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
+      vooks:
+        specifier: ^0.2.12
+        version: 0.2.12(vue@3.4.14)
       vue:
         specifier: ^3.3.11
         version: 3.4.14(typescript@5.3.3)
@@ -7987,7 +7990,6 @@ packages:
     dependencies:
       evtd: 0.2.4
       vue: 3.4.14(typescript@5.3.3)
-    dev: true
 
   /vooks@0.2.12(vue@3.4.19):
     resolution: {integrity: sha512-iox0I3RZzxtKlcgYaStQYKEzWWGAduMmq+jS7OrNdQo1FgGfPMubGL3uGHOU9n97NIvfFDBGnpSvkWyb/NSn/Q==}

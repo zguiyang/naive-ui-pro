@@ -69,6 +69,7 @@
   ],
   "dependencies": {
     "lodash-es": "^4.17.21",
+    "vooks": "^0.2.12",
     "vue": "^3.3.11"
   },
   "devDependencies": {
