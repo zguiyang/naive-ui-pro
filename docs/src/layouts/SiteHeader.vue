@@ -1,7 +1,7 @@
 <template>
   <n-layout-header bordered class="nav" :style="style">
     <n-text tag="div" class="ui-logo" :depth="1" @click="handleLogoClick">
-      <img src="../assets/naivelogo.svg" />
+      <img src="../assets/pro.logo.svg" />
       <span v-if="!isMobile">Naive UI Pro</span>
     </n-text>
     <div :style="!isMobile ? 'display: flex; align-items: center;' : ''">
@@ -372,8 +372,8 @@ export default defineComponent({
 
 .ui-logo > img {
   margin-right: 12px;
-  height: 32px;
-  width: 32px;
+  height: 38px;
+  width: 38px;
 }
 
 .nav-menu {
