@@ -1,25 +1,57 @@
 <markdown>
-# 基础用法
+  # basic
 
-这个组件应该能够快速搭建页面布局框架
-</markdown>
+  Rapidly construct the layout framework of a system. 
+
+  </markdown>
 
 <template>
-  <pro-layout></pro-layout>
+  <div style="width: 100%; position: relative; height: 400px">
+    <pro-layout
+      title="pro-layout"
+      :menu-props="{
+        options: menuOptions,
+      }"></pro-layout>
+  </div>
 </template>
 
-<style>
-.n-layout-header,
-.n-layout-footer {
-  background: rgba(128, 128, 128, 0.2);
-  padding: 24px;
-}
+<script lang="ts">
+import { Component, defineComponent, h } from 'vue';
 
-.n-layout-sider {
-  background: rgba(128, 128, 128, 0.3);
-}
+import { NIcon } from 'naive-ui';
 
-.n-layout-content {
-  background: rgba(128, 128, 128, 0.4);
-}
-</style>
+import { Book24Filled as BookIcon } from '@vicons/fluent';
+
+export default defineComponent({
+  setup() {
+    function renderIcon(icon: Component) {
+      return () => h(NIcon, null, { default: () => h(icon) });
+    }
+
+    const menuOptions = [
+      {
+        label: 'menu-1',
+        key: 'hear-the-wind-sing',
+        icon: renderIcon(BookIcon),
+      },
+      {
+        label: 'menu-2',
+        key: 'pinball-1973',
+        icon: renderIcon(BookIcon),
+        children: [
+          {
+            label: 'menu-2-1',
+            key: 'rat',
+          },
+        ],
+      },
+    ];
+
+    return {
+      menuOptions,
+    };
+  },
+});
+</script>
+
+<style></style>

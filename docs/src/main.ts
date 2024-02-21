@@ -2,6 +2,7 @@ import { Plugin, createApp } from 'vue';
 
 import naive, { NThemeEditor } from 'naive-ui';
 import naiveUiPro from 'naive-ui-pro';
+import 'naive-ui-pro/styles/index.scss';
 
 import SiteRoot from './App.vue';
 import createDemoRouter from './router/router';

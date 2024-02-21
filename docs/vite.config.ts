@@ -14,8 +14,14 @@ export default defineConfig({
     createDemoPlugin(),
     vueJsx(),
     Components({
-      resolvers: [],
-      dts: false,
+      resolvers: [
+        componentName => {
+          if (componentName.match(/^(Pro[A-Z]|pro-[a-z])/)) {
+            return { name: componentName, from: 'naive-ui-pro' };
+          }
+        },
+      ],
+      dts: true,
     }),
   ],
   resolve: {
@@ -23,7 +29,11 @@ export default defineConfig({
       process.env.NODE_ENV === 'development'
         ? [
             {
-              find: 'naive-ui-pro',
+              find: /^naive-ui-pro\/(.*)/,
+              replacement: path.resolve(SOURCE_DIR_PATH, '$1'),
+            },
+            {
+              find: /^naive-ui-pro$/,
               replacement: path.resolve(SOURCE_DIR_PATH, 'index.ts'),
             },
           ]
