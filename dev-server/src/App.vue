@@ -5,11 +5,12 @@ import type { Component } from 'vue';
 import { NButton, NIcon, NInput, NSpace } from 'naive-ui';
 import { ProLayout } from 'naive-ui-pro';
 
-import { BookFilled as BookIcon, HomeFilled } from '@vicons/antd';
+import { BookFilled as BookIcon } from '@vicons/antd';
 
 const modeArr: ('top' | 'side')[] = ['side', 'top'];
 const modeIndex = ref(0);
 const currentLayoutMode = ref<'side' | 'top'>(modeArr[modeIndex.value]);
+const collapsedRef = ref(true);
 
 const titleRef = ref('Naive UI pro');
 
@@ -146,19 +147,19 @@ function toggleLayoutMode() {
   currentLayoutMode.value = modeArr[modeIndex.value % modeArr.length] as any;
 }
 
-function renderLogo(collapsed: boolean) {
-  console.log(collapsed);
+// function renderLogo(collapsed: boolean) {
+//   console.log(collapsed);
 
-  return h(
-    NIcon,
-    {
-      size: 24,
-    },
-    {
-      default: () => h(collapsed ? BookIcon : HomeFilled),
-    }
-  );
-}
+//   return h(
+//     NIcon,
+//     {
+//       size: 24,
+//     },
+//     {
+//       default: () => h(collapsed ? BookIcon : HomeFilled),
+//     }
+//   );
+// }
 
 // function renderTitleLogo(collapsed: boolean) {
 //   console.log(collapsed);
@@ -181,20 +182,26 @@ function renderLogo(collapsed: boolean) {
     :layout-mode="currentLayoutMode"
     content-width="fluid"
     :side-props="{
+      width: 248,
+      collapsedWidth: 64,
+      collapsed: collapsedRef,
       onUpdateCollapsed: collapsed => {
-        console.log(collapsed);
+        console.log(collapsed, 'onUpdateCollapsed');
       },
     }"
     copy-right-text="© 2024 Naive UI pro"
     :menu-props="{
+      collapsedWidth: 64,
       options: menuOptions,
-    }"
-    :render-logo="renderLogo">
+    }">
     <!-- <template #left-side>LOGO区域</template> -->
     <template #right-side>导航栏右侧区域</template>
     <n-space vertical :size="16">
       <n-input v-model:value="titleRef"></n-input>
       <n-button type="primary" @click="toggleLayoutMode">切换布局</n-button>
+      <n-button type="primary" @click="collapsedRef = !collapsedRef"
+        >侧边栏折叠收起</n-button
+      >
     </n-space>
     <!-- <div style="background-color: blue; height: 120vh"></div> -->
     <!-- <div style="background-color: blue; height: 200px"></div> -->
