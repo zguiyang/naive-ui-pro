@@ -9,6 +9,7 @@ lerna-debug.log*
 
 .idea
 .vscode
+coverage
 node_modules
 dist
 cache
