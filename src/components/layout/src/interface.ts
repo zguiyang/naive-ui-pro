@@ -15,6 +15,8 @@ import type {
   MenuProps,
 } from 'naive-ui';
 
+import { MaybeArray } from '../../_utils/vue';
+
 export const proLayoutProps = {
   title: {
     type: String,
@@ -32,18 +34,31 @@ export const proLayoutProps = {
     type: [String, Number] as PropType<string | number>,
     default: 60,
   },
+  collapsed: {
+    type: Boolean as PropType<boolean | undefined>,
+    default: undefined,
+  },
+  defaultCollapsed: Boolean,
+  collapsedWidth: {
+    type: [String, Number] as PropType<string | number>,
+    default: 60,
+  },
+  sideBarWidth: {
+    type: [String, Number] as PropType<string | number>,
+    default: 280,
+  },
   splitMenus: Boolean,
   copyRightText: String,
   renderLogo: {
-    type: Function as PropType<(collapsed: boolean) => VNodeChild>,
+    type: Function as PropType<() => VNodeChild>,
     default: undefined,
   },
   renderTitleLogo: {
-    type: Function as PropType<(collapsed: boolean) => VNodeChild>,
+    type: Function as PropType<() => VNodeChild>,
     default: undefined,
   },
   menuProps: {
-    type: Object as PropType<Omit<MenuProps, 'collapsed'>>,
+    type: Object as PropType<Omit<MenuProps, 'collapsed' | 'collapsedWidth'>>,
   },
   headerProps: {
     type: Object as PropType<LayoutHeaderProps>,
@@ -56,11 +71,27 @@ export const proLayoutProps = {
     default: undefined,
   },
   sideProps: {
-    type: Object as PropType<LayoutSiderProps>,
+    type: Object as PropType<
+      Omit<
+        LayoutSiderProps,
+        | 'collapsed'
+        | 'defaultCollapsed'
+        | 'onUpdateCollapsed'
+        | 'onUpdate:collapsed'
+        | 'width'
+        | 'collapsedWidth'
+      >
+    >,
   },
   footerProps: {
     type: Object as PropType<LayoutFooterProps>,
   },
+  'onUpdate:collapsed': [Function, Array] as PropType<
+    MaybeArray<(value: boolean) => void>
+  >,
+  onUpdateCollapsed: [Function, Array] as PropType<
+    MaybeArray<(value: boolean) => void>
+  >,
 };
 
 export type ProLayoutProps = ExtractPropTypes<typeof proLayoutProps>;
@@ -70,12 +101,7 @@ export interface ProLayoutInjection {
   headerPropsRef: ComputedRef<ProLayoutProps['headerProps']>;
   contentPropsRef: ComputedRef<ProLayoutProps['contentProps']>;
   sidePropsRef: ComputedRef<ProLayoutProps['sideProps']>;
-  titleRef: Ref<string | undefined>;
-  layoutModeRef: ComputedRef<'side' | 'top'>;
+  layoutModeRef: Ref<'side' | 'top'>;
   headerHeightRef: ComputedRef<string>;
-  provideCollapsedRef: Ref<boolean>;
   contentWidthRef: ComputedRef<'fixed' | 'fluid'>;
-  handleToggleCollapsed?: (collapsed: boolean) => void;
-  handleRenderLogo?: ((collapsed: boolean) => VNodeChild) | undefined;
-  handleRenderTitleLogo?: ((collapsed: boolean) => VNodeChild) | undefined;
 }

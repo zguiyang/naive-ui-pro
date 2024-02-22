@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue';
 
-import { NLayoutContent, layoutContentProps } from 'naive-ui';
+import { NLayoutContent } from 'naive-ui';
 
 import { useBemNamespace } from '../../../_utils';
 import { useLayoutProvide } from '../hooks';
@@ -9,7 +9,6 @@ const bem = useBemNamespace('layout-content');
 
 export const LayoutContent = defineComponent({
   name: bem.name,
-  props: layoutContentProps,
   setup() {
     const { LayoutProvide } = useLayoutProvide();
     return {

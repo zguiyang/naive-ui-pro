@@ -2,7 +2,10 @@ import { computed, defineComponent, provide, ref, toRef } from 'vue';
 
 import { NLayout, NLayoutFooter } from 'naive-ui';
 
+import { useMergedState } from 'vooks';
+
 import { formatCssUnit, useBemNamespace } from '../../_utils';
+import { call } from '../../_utils/vue';
 import { layoutInjectionKey } from './context.ts';
 import { useLayoutData } from './hooks.ts';
 import { proLayoutProps } from './interface.ts';
@@ -19,25 +22,30 @@ const Layout = defineComponent({
       useLayoutData(props);
 
     const headerHeightRef = computed(() => formatCssUnit(props.headerHeight));
-    const provideCollapsedRef = ref(false);
 
-    function handleToggleCollapsed(collapsed: boolean) {
-      provideCollapsedRef.value = collapsed;
+    const internalCollapsedRef = ref(props.defaultCollapsed);
+    const mergedCollapsedRef = useMergedState(
+      toRef(props, 'collapsed'),
+      internalCollapsedRef
+    );
+
+    function doUpdateCollapsed(collapsed: boolean) {
+      const { onUpdateCollapsed, 'onUpdate:collapsed': _onUpdateCollapsed } =
+        props;
+
+      internalCollapsedRef.value = collapsed;
+      onUpdateCollapsed && call(onUpdateCollapsed, collapsed);
+      _onUpdateCollapsed && call(_onUpdateCollapsed, collapsed);
     }
 
     provide(layoutInjectionKey, {
-      provideCollapsedRef: provideCollapsedRef,
       headerHeightRef,
-      titleRef: toRef(props, 'title'),
-      layoutModeRef: computed(() => props.layoutMode),
+      layoutModeRef,
       menuPropsRef: computed(() => props.menuProps),
       headerPropsRef: computed(() => props.headerProps),
       contentPropsRef: computed(() => props.contentProps),
       sidePropsRef: computed(() => props.sideProps),
       contentWidthRef: computed(() => props.contentWidth),
-      handleToggleCollapsed,
-      handleRenderLogo: props.renderLogo,
-      handleRenderTitleLogo: props.renderTitleLogo,
     });
 
     return {
@@ -45,10 +53,26 @@ const Layout = defineComponent({
       layoutModeRef,
       mergeExternalPropsRef,
       headerHeight: headerHeightRef,
+      collapsed: mergedCollapsedRef,
+      defaultCollapsed: toRef(props, 'defaultCollapsed'),
+      collapsedWidth: toRef(props, 'collapsedWidth'),
+      sideBarWidth: toRef(props, 'sideBarWidth'),
+      handleToggleCollapsed: doUpdateCollapsed,
     };
   },
   render() {
-    const { $slots, mergeExternalPropsRef, layoutModeRef } = this;
+    const {
+      $slots,
+      titleRef,
+      headerHeight,
+      mergeExternalPropsRef,
+      layoutModeRef,
+      collapsed,
+      defaultCollapsed,
+      collapsedWidth,
+      sideBarWidth,
+      handleToggleCollapsed,
+    } = this;
 
     if (layoutModeRef === 'side') {
       return (
@@ -56,7 +80,13 @@ const Layout = defineComponent({
           class={[bem.b(), bem.m(this.layoutModeRef)]}
           {...mergeExternalPropsRef}
           position={'absolute'}>
-          <LayoutHeader>{$slots}</LayoutHeader>
+          <LayoutHeader
+            title={titleRef}
+            height={headerHeight}
+            renderLogo={this.renderLogo}
+            renderTitleLogo={this.renderTitleLogo}>
+            {$slots}
+          </LayoutHeader>
           <NLayout
             class={[bem.e('container-wrapper')]}
             position={'absolute'}
@@ -64,7 +94,12 @@ const Layout = defineComponent({
             style={{
               top: this.headerHeight,
             }}>
-            <LayoutSidebar></LayoutSidebar>
+            <LayoutSidebar
+              width={sideBarWidth}
+              collapsed={collapsed}
+              defaultCollapsed={defaultCollapsed}
+              collapsed-width={collapsedWidth}
+              onUpdateCollapsed={handleToggleCollapsed}></LayoutSidebar>
             <NLayout class={[bem.e('content')]}>
               <LayoutContent>{$slots.default?.()}</LayoutContent>
               <NLayoutFooter class={[bem.e('footer')]} position='absolute'>
@@ -80,7 +115,13 @@ const Layout = defineComponent({
           class={[bem.b(), bem.m(this.layoutModeRef)]}
           {...mergeExternalPropsRef}
           position='absolute'>
-          <LayoutHeader>{$slots}</LayoutHeader>
+          <LayoutHeader
+            title={titleRef}
+            height={headerHeight}
+            renderLogo={this.renderLogo}
+            renderTitleLogo={this.renderTitleLogo}>
+            {$slots}
+          </LayoutHeader>
           <NLayout
             class={[bem.e('container-wrapper')]}
             style={{ top: this.headerHeight, bottom: '48px' }}

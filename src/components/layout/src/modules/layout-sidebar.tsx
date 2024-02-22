@@ -1,8 +1,8 @@
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 import { NLayoutSider, NMenu, layoutSiderProps } from 'naive-ui';
 
-import { useMergedState } from 'vooks';
+import { pick } from 'lodash-es';
 
 import { useBemNamespace } from '../../../_utils';
 import { useLayoutProvide } from '../hooks';
@@ -11,42 +11,50 @@ const bem = useBemNamespace('layout-sidebar');
 
 export const LayoutSidebar = defineComponent({
   name: bem.name,
-  props: layoutSiderProps,
+  props: {
+    ...pick(layoutSiderProps, [
+      'width',
+      'collapsed',
+      'defaultCollapsed',
+      'collapsedWidth',
+      'onUpdateCollapsed',
+    ]),
+  },
   setup() {
     const { LayoutProvide } = useLayoutProvide();
 
     const sideExternalProps = LayoutProvide.sidePropsRef;
 
-    const mergedCollapsedRef = useMergedState(
-      ref(sideExternalProps.value?.collapsed),
-      LayoutProvide.provideCollapsedRef
-    );
-
     return {
       menuEXternalProps: LayoutProvide.menuPropsRef,
-      sideExternalProps: LayoutProvide.sidePropsRef,
-      mergedCollapsed: mergedCollapsedRef,
-      handleToggleCollapsed: LayoutProvide.handleToggleCollapsed,
+      sideExternalProps: computed(() => {
+        return Object.assign(
+          {
+            showTrigger: true,
+            collapseMode: 'width',
+            nativeScrollbar: true,
+          },
+          sideExternalProps.value ?? {}
+        );
+      }),
     };
   },
   render() {
-    const {
-      menuEXternalProps,
-      sideExternalProps,
-      mergedCollapsed,
-      handleToggleCollapsed,
-    } = this;
+    const { menuEXternalProps, sideExternalProps, onUpdateCollapsed } = this;
     return (
       <NLayoutSider
         class={[bem.b()]}
-        showTrigger={true}
-        collapseMode={'width'}
         {...sideExternalProps}
-        collapsed={mergedCollapsed}
-        onUpdateCollapsed={handleToggleCollapsed}
-        nativeScrollbar={true}>
+        width={this.width}
+        collapsedWidth={this.collapsedWidth}
+        defaultCollapsed={this.defaultCollapsed}
+        collapsed={this.collapsed}
+        onUpdateCollapsed={onUpdateCollapsed}>
         <div class={[bem.e('menus')]}>
-          <NMenu collapsed={mergedCollapsed} {...menuEXternalProps}></NMenu>
+          <NMenu
+            {...menuEXternalProps}
+            collapsed={this.collapsed}
+            collapsedWidth={this.collapsedWidth}></NMenu>
         </div>
       </NLayoutSider>
     );
