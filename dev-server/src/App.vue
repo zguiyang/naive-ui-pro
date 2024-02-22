@@ -187,6 +187,7 @@ function handleUpdateCollapsed(collapsed: boolean) {
     :layout-mode="currentLayoutMode"
     content-width="fluid"
     :side-props="{}"
+    side-bar-width="200"
     copy-right-text="© 2024 Naive UI pro"
     :menu-props="{
       options: menuOptions,
