@@ -10,7 +10,7 @@ import { BookFilled as BookIcon } from '@vicons/antd';
 const modeArr: ('top' | 'side')[] = ['side', 'top'];
 const modeIndex = ref(0);
 const currentLayoutMode = ref<'side' | 'top'>(modeArr[modeIndex.value]);
-const collapsedRef = ref(true);
+const collapsedRef = ref(false);
 
 const titleRef = ref('Naive UI pro');
 
@@ -147,6 +147,10 @@ function toggleLayoutMode() {
   currentLayoutMode.value = modeArr[modeIndex.value % modeArr.length] as any;
 }
 
+function handleUpdateCollapsed(collapsed: boolean) {
+  console.log('🚀 ~ handleUpdateCollapsed ~ collapsed:', collapsed);
+  // collapsedRef.value = collapsed;
+}
 // function renderLogo(collapsed: boolean) {
 //   console.log(collapsed);
 
@@ -179,24 +183,19 @@ function toggleLayoutMode() {
 <template>
   <pro-layout
     :title="titleRef"
+    v-model:collapsed="collapsedRef"
     :layout-mode="currentLayoutMode"
     content-width="fluid"
-    :side-props="{
-      width: 248,
-      collapsedWidth: 64,
-      collapsed: collapsedRef,
-      onUpdateCollapsed: collapsed => {
-        console.log(collapsed, 'onUpdateCollapsed');
-      },
-    }"
+    :side-props="{}"
     copy-right-text="© 2024 Naive UI pro"
     :menu-props="{
-      collapsedWidth: 64,
       options: menuOptions,
-    }">
+    }"
+    @update:collapsed="handleUpdateCollapsed">
     <!-- <template #left-side>LOGO区域</template> -->
     <template #right-side>导航栏右侧区域</template>
     <n-space vertical :size="16">
+      <p>collapsed: {{ collapsedRef }}</p>
       <n-input v-model:value="titleRef"></n-input>
       <n-button type="primary" @click="toggleLayoutMode">切换布局</n-button>
       <n-button type="primary" @click="collapsedRef = !collapsedRef"
