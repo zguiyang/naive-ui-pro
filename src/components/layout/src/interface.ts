@@ -34,19 +34,19 @@ export const proLayoutProps = {
     type: [String, Number] as PropType<string | number>,
     default: 60,
   },
+  sideBarWidth: {
+    type: [String, Number] as PropType<string | number>,
+    default: 248,
+  },
+  collapsedWidth: {
+    type: [String, Number] as PropType<string | number>,
+    default: 60,
+  },
   collapsed: {
     type: Boolean as PropType<boolean | undefined>,
     default: undefined,
   },
   defaultCollapsed: Boolean,
-  collapsedWidth: {
-    type: [String, Number] as PropType<string | number>,
-    default: 60,
-  },
-  sideBarWidth: {
-    type: [String, Number] as PropType<string | number>,
-    default: 248,
-  },
   // splitMenus: Boolean,
   copyRightText: String,
   renderLogo: {

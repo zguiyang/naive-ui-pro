@@ -14,14 +14,14 @@ describe('pro-layout', () => {
     const wrapper = mount(ProLayout, {
       props: {},
       slots: {
-        default: () => ['page container'],
+        default: () => ['page context'],
       },
     });
     expect(wrapper.find('.pro-layout').exists()).toBe(true);
     expect(wrapper.find('.pro-layout-header').exists()).toBe(true);
     expect(wrapper.find('.pro-layout-sidebar').exists()).toBe(true);
     expect(wrapper.find('.pro-layout__footer').exists()).toBe(true);
-    expect(wrapper.find('.pro-layout__content').text()).toBe('page container');
+    expect(wrapper.find('.pro-layout__content').text()).toBe('page context');
   });
 
   describe('should work with title and logo', () => {
@@ -43,13 +43,13 @@ describe('pro-layout', () => {
           renderLogo: () =>
             h('img', {
               class: 'pro-layout-header__logo-img',
-              src: 'https://img.yzcdn.cn/vant/logo.png',
+              src: 'https://xxx/logo.png',
             }),
         },
       });
       expect(
         wrapper.find('.pro-layout-header__logo-img').attributes('src')
-      ).toBe('https://img.yzcdn.cn/vant/logo.png');
+      ).toBe('https://xxx/logo.png');
     });
 
     it('should work with render title logo', async () => {
@@ -72,7 +72,7 @@ describe('pro-layout', () => {
                   ),
                   h('img', {
                     class: 'pro-layout-header__logo-img',
-                    src: 'https://img.yzcdn.cn/vant/logo2.png',
+                    src: 'https://logo2.png',
                   }),
                 ],
               }
@@ -84,7 +84,7 @@ describe('pro-layout', () => {
       );
       expect(
         wrapper.find('.pro-layout-header__logo-img').attributes('src')
-      ).toBe('https://img.yzcdn.cn/vant/logo2.png');
+      ).toBe('https://logo2.png');
     });
   });
 
@@ -119,18 +119,6 @@ describe('pro-layout', () => {
     });
   });
 
-  it('should work with sidebar width', async () => {
-    const wrapper = mount(ProLayout, {
-      props: {
-        sidebarWidth: 200,
-      },
-      slots: {},
-    });
-    const sidebarStyle = wrapper
-      .find('.pro-layout-sidebar')
-      .attributes('style');
-    expect(sidebarStyle).toContain('width: 200px;');
-  });
   describe('should work with content width', () => {
     it('should work with content width fixed', async () => {
       const wrapper = mount(ProLayout, {
@@ -156,20 +144,183 @@ describe('pro-layout', () => {
     });
   });
 
-  it('should work with header height', async () => {
-    const wrapper = mount(ProLayout, {
-      props: {
-        headerHeight: 70,
-      },
-      slots: {},
+  describe('should work with header height prop', () => {
+    it('should work with header default height', async () => {
+      const wrapper = mount(ProLayout, {
+        props: {},
+        slots: {},
+      });
+
+      const headerStyle = wrapper
+        .find('.pro-layout-header')
+        .attributes('style');
+      const contentStyle = wrapper
+        .find('.pro-layout__container-wrapper')
+        .attributes('style');
+
+      expect(headerStyle).toContain('height: 60px;');
+      expect(contentStyle).toContain('top: 60px;');
     });
 
-    const headerStyle = wrapper.find('.pro-layout-header').attributes('style');
-    const contentStyle = wrapper
-      .find('.pro-layout__container-wrapper')
-      .attributes('style');
+    it('The string height property should work properly', async () => {
+      const wrapper = mount(ProLayout, {
+        props: {
+          headerHeight: '70',
+        },
+        slots: {},
+      });
 
-    expect(headerStyle).toContain('height: 70px;');
-    expect(contentStyle).toContain('top: 70px;');
+      const headerStyle = wrapper
+        .find('.pro-layout-header')
+        .attributes('style');
+      const contentStyle = wrapper
+        .find('.pro-layout__container-wrapper')
+        .attributes('style');
+
+      expect(headerStyle).toContain('height: 70px;');
+      expect(contentStyle).toContain('top: 70px;');
+    });
+
+    it('The number height property should work properly', async () => {
+      const wrapper = mount(ProLayout, {
+        props: {
+          headerHeight: 70,
+        },
+        slots: {},
+      });
+
+      const headerStyle = wrapper
+        .find('.pro-layout-header')
+        .attributes('style');
+      const contentStyle = wrapper
+        .find('.pro-layout__container-wrapper')
+        .attributes('style');
+
+      expect(headerStyle).toContain('height: 70px;');
+      expect(contentStyle).toContain('top: 70px;');
+    });
+  });
+
+  describe('should work with sidebar with prop', () => {
+    it('should work with sidebar default width', async () => {
+      const wrapper = mount(ProLayout, {
+        props: {},
+        slots: {},
+      });
+      const sidebarStyle = wrapper
+        .find('.pro-layout-sidebar')
+        .attributes('style');
+
+      expect(sidebarStyle).toContain('width: 248px;');
+    });
+
+    it('set sidebar width', async () => {
+      const wrapper = mount(ProLayout, {
+        props: {
+          sideBarWidth: 200,
+        },
+        slots: {},
+      });
+      const sidebarStyle = wrapper
+        .find('.pro-layout-sidebar')
+        .attributes('style');
+
+      expect(sidebarStyle).toContain('width: 200px;');
+    });
+  });
+
+  describe('should work with collapsed with prop', () => {
+    it('should work with collapsed default width', async () => {
+      const wrapper = mount(ProLayout, {
+        props: {},
+        slots: {},
+      });
+      const sidebarStyle = wrapper
+        .find('.pro-layout-sidebar')
+        .attributes('style');
+
+      expect(sidebarStyle).toContain('max-width: 248px; width: 248px');
+    });
+
+    it('set collapsed width', async () => {
+      const wrapper = mount(ProLayout, {
+        props: {
+          collapsed: true,
+          sideBarWidth: 200,
+          collapsedWidth: 80,
+        },
+        slots: {},
+      });
+      const sidebarStyle = wrapper
+        .find('.pro-layout-sidebar')
+        .attributes('style');
+
+      expect(sidebarStyle).toContain('max-width: 80px; width: 200px;');
+    });
+  });
+
+  describe('should work with collapsed prop', () => {
+    it('should work with default-collapsed', async () => {
+      const wrapper = await mount(ProLayout, {
+        props: {
+          defaultCollapsed: true,
+        },
+      });
+
+      expect(
+        wrapper.find('.pro-layout-sidebar').classes('n-layout-sider--collapsed')
+      ).toBe(true);
+
+      expect(wrapper.find('.pro-layout-sidebar').attributes('style')).toContain(
+        'max-width: 60px;'
+      );
+    });
+
+    it('should work with unControlled mode', async () => {
+      const wrapper = await mount(ProLayout, {
+        props: {},
+      });
+
+      expect(
+        wrapper.find('.pro-layout-sidebar').classes('n-layout-sider--collapsed')
+      ).toBe(false);
+
+      expect(wrapper.find('.n-menu').classes('n-menu--collapsed')).toBe(false);
+      expect(wrapper.find('.pro-layout-sidebar').attributes('style')).toContain(
+        'max-width: 248px;'
+      );
+
+      await wrapper.find('.n-layout-toggle-button').trigger('click');
+
+      expect(
+        wrapper.find('.pro-layout-sidebar').classes('n-layout-sider--collapsed')
+      ).toBe(true);
+      expect(wrapper.find('.n-menu').classes('n-menu--collapsed')).toBe(true);
+      expect(wrapper.find('.pro-layout-sidebar').attributes('style')).toContain(
+        'max-width: 60px;'
+      );
+    });
+
+    it('should work with controlled mode', async () => {
+      const wrapper = await mount(ProLayout, {
+        props: {
+          collapsed: true,
+          'onUpdate:collapsed': e => wrapper.setProps({ collapsed: e }),
+        },
+      });
+
+      expect(
+        wrapper.find('.pro-layout-sidebar').classes('n-layout-sider--collapsed')
+      ).toBe(true);
+      expect(wrapper.find('.n-menu').classes('n-menu--collapsed')).toBe(true);
+
+      await wrapper.find('.n-layout-toggle-button').trigger('click');
+
+      expect(
+        wrapper.find('.pro-layout-sidebar').classes('n-layout-sider--collapsed')
+      ).toBe(false);
+      expect(wrapper.props('collapsed')).toBe(false);
+      expect(wrapper.find('.n-menu').classes('n-menu--collapsed')).toBe(false);
+    });
   });
 });
