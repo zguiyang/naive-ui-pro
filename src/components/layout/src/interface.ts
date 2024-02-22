@@ -45,9 +45,9 @@ export const proLayoutProps = {
   },
   sideBarWidth: {
     type: [String, Number] as PropType<string | number>,
-    default: 280,
+    default: 248,
   },
-  splitMenus: Boolean,
+  // splitMenus: Boolean,
   copyRightText: String,
   renderLogo: {
     type: Function as PropType<() => VNodeChild>,
@@ -55,6 +55,10 @@ export const proLayoutProps = {
   },
   renderTitleLogo: {
     type: Function as PropType<() => VNodeChild>,
+    default: undefined,
+  },
+  layoutProps: {
+    type: Object as PropType<LayoutProps>,
     default: undefined,
   },
   menuProps: {
@@ -65,10 +69,6 @@ export const proLayoutProps = {
   },
   contentProps: {
     type: Object as PropType<LayoutContentProps>,
-  },
-  layoutProps: {
-    type: Object as PropType<LayoutProps>,
-    default: undefined,
   },
   sideProps: {
     type: Object as PropType<
