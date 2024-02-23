@@ -22,6 +22,8 @@ describe('pro-layout', () => {
     expect(wrapper.find('.pro-layout-sidebar').exists()).toBe(true);
     expect(wrapper.find('.pro-layout__footer').exists()).toBe(true);
     expect(wrapper.find('.pro-layout__content').text()).toBe('page context');
+
+    wrapper.unmount();
   });
 
   describe('should work with title and logo', () => {
@@ -35,6 +37,8 @@ describe('pro-layout', () => {
       expect(wrapper.find('.pro-layout-header__title').text()).toBe(
         'pro-layout'
       );
+
+      wrapper.unmount();
     });
 
     it('should work with render logo', async () => {
@@ -50,6 +54,8 @@ describe('pro-layout', () => {
       expect(
         wrapper.find('.pro-layout-header__logo-img').attributes('src')
       ).toBe('https://xxx/logo.png');
+
+      wrapper.unmount();
     });
 
     it('should work with render title logo', async () => {
@@ -85,6 +91,8 @@ describe('pro-layout', () => {
       expect(
         wrapper.find('.pro-layout-header__logo-img').attributes('src')
       ).toBe('https://logo2.png');
+
+      wrapper.unmount();
     });
   });
 
@@ -93,6 +101,18 @@ describe('pro-layout', () => {
       const wrapper = mount(ProLayout, {
         props: {
           layoutMode: 'side',
+          menuProps: {
+            options: [
+              {
+                label: 'menu-option-1',
+                key: 'menu-option-1',
+              },
+              {
+                label: 'menu-option-2',
+                key: 'menu-option-2',
+              },
+            ],
+          },
         },
         slots: {},
       });
@@ -102,11 +122,39 @@ describe('pro-layout', () => {
       expect(
         wrapper.find('.pro-layout__container-wrapper').attributes('style')
       ).toContain('top: 60px;');
+
+      expect(
+        wrapper
+          .find('.pro-layout-sidebar__menus')
+          .find('.n-menu--vertical')
+          .exists()
+      ).toBe(true);
+      expect(
+        wrapper.find('.pro-layout-sidebar__menus').findAll('.n-menu-item')
+          .length
+      ).toBe(2);
+
+      wrapper.unmount();
+
+      wrapper.unmount();
     });
+
     it('should work with layout mode top', async () => {
       const wrapper = mount(ProLayout, {
         props: {
           layoutMode: 'top',
+          menuProps: {
+            options: [
+              {
+                label: 'menu-option-1',
+                key: 'menu-option-1',
+              },
+              {
+                label: 'menu-option-2',
+                key: 'menu-option-2',
+              },
+            ],
+          },
         },
         slots: {},
       });
@@ -116,6 +164,22 @@ describe('pro-layout', () => {
       expect(
         wrapper.find('.pro-layout__container-wrapper').attributes('style')
       ).toContain('top: 60px; bottom: 48px;');
+
+      expect(
+        wrapper
+          .find('.pro-layout-header__center')
+          .find('.n-menu--horizontal')
+          .classes('n-menu--responsive')
+      ).toBe(true);
+      expect(
+        wrapper.find('.pro-layout-header__center').findAll('.n-submenu').length
+      ).toBe(1);
+      expect(
+        wrapper.find('.pro-layout-header__center').findAll('.n-menu-item')
+          .length
+      ).toBe(3);
+
+      wrapper.unmount();
     });
   });
 
@@ -130,6 +194,8 @@ describe('pro-layout', () => {
       expect(
         wrapper.find('.pro-layout-content').classes('pro-layout-content--fluid')
       ).toBe(true);
+
+      wrapper.unmount();
     });
 
     it('should work with content width fixed', async () => {
@@ -141,6 +207,8 @@ describe('pro-layout', () => {
       expect(
         wrapper.find('.pro-layout-content').classes('pro-layout-content--fixed')
       ).toBe(true);
+
+      wrapper.unmount();
     });
   });
 
@@ -160,6 +228,8 @@ describe('pro-layout', () => {
 
       expect(headerStyle).toContain('height: 60px;');
       expect(contentStyle).toContain('top: 60px;');
+
+      wrapper.unmount();
     });
 
     it('The string height property should work properly', async () => {
@@ -179,6 +249,8 @@ describe('pro-layout', () => {
 
       expect(headerStyle).toContain('height: 70px;');
       expect(contentStyle).toContain('top: 70px;');
+
+      wrapper.unmount();
     });
 
     it('The number height property should work properly', async () => {
@@ -198,6 +270,8 @@ describe('pro-layout', () => {
 
       expect(headerStyle).toContain('height: 70px;');
       expect(contentStyle).toContain('top: 70px;');
+
+      wrapper.unmount();
     });
   });
 
@@ -212,6 +286,8 @@ describe('pro-layout', () => {
         .attributes('style');
 
       expect(sidebarStyle).toContain('width: 248px;');
+
+      wrapper.unmount();
     });
 
     it('set sidebar width', async () => {
@@ -226,6 +302,8 @@ describe('pro-layout', () => {
         .attributes('style');
 
       expect(sidebarStyle).toContain('width: 200px;');
+
+      wrapper.unmount();
     });
   });
 
@@ -240,6 +318,8 @@ describe('pro-layout', () => {
         .attributes('style');
 
       expect(sidebarStyle).toContain('max-width: 248px; width: 248px');
+
+      wrapper.unmount();
     });
 
     it('set collapsed width', async () => {
@@ -256,6 +336,8 @@ describe('pro-layout', () => {
         .attributes('style');
 
       expect(sidebarStyle).toContain('max-width: 80px; width: 200px;');
+
+      wrapper.unmount();
     });
   });
 
@@ -274,6 +356,8 @@ describe('pro-layout', () => {
       expect(wrapper.find('.pro-layout-sidebar').attributes('style')).toContain(
         'max-width: 60px;'
       );
+
+      wrapper.unmount();
     });
 
     it('should work with unControlled mode', async () => {
@@ -299,6 +383,8 @@ describe('pro-layout', () => {
       expect(wrapper.find('.pro-layout-sidebar').attributes('style')).toContain(
         'max-width: 60px;'
       );
+
+      wrapper.unmount();
     });
 
     it('should work with controlled mode', async () => {
@@ -321,6 +407,135 @@ describe('pro-layout', () => {
       ).toBe(false);
       expect(wrapper.props('collapsed')).toBe(false);
       expect(wrapper.find('.n-menu').classes('n-menu--collapsed')).toBe(false);
+
+      wrapper.unmount();
+    });
+  });
+
+  it('should work with copyRightText prop', async () => {
+    const wrapper = await mount(ProLayout, {
+      props: {
+        copyRightText: '2024@zguiyang',
+      },
+    });
+
+    expect(wrapper.find('.pro-layout__footer').text()).toBe('2024@zguiyang');
+
+    wrapper.unmount();
+  });
+  describe('should work with extended props of naive-ui', () => {
+    it('layout props', async () => {
+      const wrapper = await mount(ProLayout, {
+        props: {
+          layoutProps: {
+            contentStyle: {
+              backgroundColor: 'red',
+            },
+          },
+        },
+      });
+
+      expect(
+        wrapper.findAll('.n-layout-scroll-container')[0].attributes('style')
+      ).toContain('background-color: red;');
+
+      wrapper.unmount();
+    });
+
+    it('menu props', async () => {
+      const wrapper = await mount(ProLayout, {
+        props: {
+          menuProps: {
+            options: [
+              {
+                label: 'menu-option-1',
+                key: 'menu-option-1',
+              },
+              {
+                label: 'menu-option-2',
+                key: 'menu-option-2',
+              },
+            ],
+          },
+        },
+      });
+
+      expect(
+        wrapper.find('.pro-layout-sidebar__menus').findAll('.n-menu-item')
+          .length
+      ).toBe(2);
+
+      wrapper.unmount();
+    });
+
+    it('header props', async () => {
+      const wrapper = await mount(ProLayout, {
+        props: {
+          headerProps: {
+            inverted: true,
+          },
+        },
+      });
+
+      expect(wrapper.find('.pro-layout-header').attributes('style')).toContain(
+        '--n-color: rgb(0, 20, 40); --n-text-color: #FFF; --n-border-color: rgb(0, 20, 40);'
+      );
+
+      wrapper.unmount();
+    });
+
+    it('content props', async () => {
+      const wrapper = await mount(ProLayout, {
+        props: {
+          contentProps: {
+            contentClass: 'pro-layout-content-test',
+            contentStyle: {
+              backgroundColor: '#000',
+            },
+          },
+        },
+      });
+
+      expect(
+        wrapper.find('.pro-layout-content-test').attributes('style')
+      ).toContain('background-color: #000;');
+
+      wrapper.unmount();
+    });
+
+    it('sider props', async () => {
+      const wrapper = await mount(ProLayout, {
+        props: {
+          sideProps: {
+            inverted: true,
+          },
+          menuProps: {
+            inverted: true,
+          },
+        },
+      });
+
+      expect(wrapper.find('.pro-layout-sidebar').attributes('style')).toContain(
+        '--n-color: rgb(0, 20, 40); --n-text-color: #FFF; --n-border-color: rgb(0, 20, 40);'
+      );
+
+      wrapper.unmount();
+    });
+
+    it('footer props', async () => {
+      const wrapper = await mount(ProLayout, {
+        props: {
+          footerProps: {
+            bordered: true,
+          },
+        },
+      });
+
+      expect(
+        wrapper.find('.pro-layout__footer').classes('n-layout-footer--bordered')
+      ).toBe(true);
+
+      wrapper.unmount();
     });
   });
 });
