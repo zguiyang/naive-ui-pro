@@ -13,14 +13,15 @@ export const LayoutContent = defineComponent({
     const { LayoutProvide } = useLayoutProvide();
     return {
       contentWidthRef: LayoutProvide.contentWidthRef,
+      contentProps: LayoutProvide.contentPropsRef,
     };
   },
   render() {
     const { $slots, contentWidthRef } = this;
     return (
       <NLayoutContent
-        {...this.$props}
-        class={[bem.b(), bem.m(contentWidthRef)]}>
+        class={[bem.b(), bem.m(contentWidthRef)]}
+        {...this.contentProps}>
         {$slots.default?.()}
       </NLayoutContent>
     );

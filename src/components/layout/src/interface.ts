@@ -58,14 +58,16 @@ export const proLayoutProps = {
     default: undefined,
   },
   layoutProps: {
-    type: Object as PropType<LayoutProps>,
+    type: Object as PropType<
+      Omit<LayoutProps, 'hasSider' | 'siderPlacement' | 'position'>
+    >,
     default: undefined,
   },
   menuProps: {
     type: Object as PropType<Omit<MenuProps, 'collapsed' | 'collapsedWidth'>>,
   },
   headerProps: {
-    type: Object as PropType<LayoutHeaderProps>,
+    type: Object as PropType<Omit<LayoutHeaderProps, 'bordered' | 'position'>>,
   },
   contentProps: {
     type: Object as PropType<LayoutContentProps>,
@@ -80,11 +82,12 @@ export const proLayoutProps = {
         | 'onUpdate:collapsed'
         | 'width'
         | 'collapsedWidth'
+        | 'position'
       >
     >,
   },
   footerProps: {
-    type: Object as PropType<LayoutFooterProps>,
+    type: Object as PropType<Omit<LayoutFooterProps, 'position'>>,
   },
   'onUpdate:collapsed': [Function, Array] as PropType<
     MaybeArray<(value: boolean) => void>

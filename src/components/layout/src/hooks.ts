@@ -1,17 +1,16 @@
 import { computed, inject, toRef } from 'vue';
 
+import { cloneDeep, omit } from 'lodash-es';
+
 import { layoutInjectionKey } from './context';
 import type { ProLayoutProps } from './interface';
 
 export function useLayoutData(props: ProLayoutProps) {
   const { layoutProps = {} } = props;
   const mergeExternalPropsRef = computed(() => {
-    if (props.layoutMode === 'top') {
-      layoutProps.hasSider = false;
-    } else {
-      layoutProps.hasSider = false;
-    }
-    return layoutProps;
+    const _layoutProps = cloneDeep(layoutProps);
+
+    return omit(_layoutProps, ['hasSider', 'siderPlacement', 'position']);
   });
 
   return {

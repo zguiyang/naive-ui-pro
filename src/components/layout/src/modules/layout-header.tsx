@@ -68,6 +68,7 @@ export const LayoutHeader = defineComponent({
       <NLayoutHeader
         {...this.headerExternalProps}
         bordered
+        position={'static'}
         style={{ height: this.heightRef }}
         class={[bem.b(), layoutModeRef === 'top' && bem.m(contentWidthRef)]}>
         <div class={[bem.e('left')]}>

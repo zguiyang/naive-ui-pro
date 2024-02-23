@@ -45,6 +45,7 @@ export const LayoutSidebar = defineComponent({
       <NLayoutSider
         class={[bem.b()]}
         {...sideExternalProps}
+        position={'static'}
         width={this.width}
         collapsedWidth={this.collapsedWidth}
         defaultCollapsed={this.defaultCollapsed}

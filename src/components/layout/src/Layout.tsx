@@ -102,7 +102,10 @@ const Layout = defineComponent({
               onUpdateCollapsed={handleToggleCollapsed}></LayoutSidebar>
             <NLayout class={[bem.e('content')]}>
               <LayoutContent>{$slots.default?.()}</LayoutContent>
-              <NLayoutFooter class={[bem.e('footer')]} position='absolute'>
+              <NLayoutFooter
+                {...this.footerProps}
+                class={[bem.e('footer')]}
+                position='absolute'>
                 {this.copyRightText}
               </NLayoutFooter>
             </NLayout>
@@ -128,7 +131,10 @@ const Layout = defineComponent({
             position='absolute'>
             <LayoutContent>{$slots.default?.()}</LayoutContent>
           </NLayout>
-          <NLayoutFooter class={[bem.e('footer')]} position='absolute'>
+          <NLayoutFooter
+            class={[bem.e('footer')]}
+            {...this.footerProps}
+            position='absolute'>
             {this.copyRightText}
           </NLayoutFooter>
         </NLayout>
